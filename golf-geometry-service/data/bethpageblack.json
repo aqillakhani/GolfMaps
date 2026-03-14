@@ -1,0 +1,1901 @@
+{
+  "robot": false,
+  "path": "/bluegolf/app/course/bethpageblack/overview.json",
+  "allowgps": true,
+  "allowShots": false,
+  "course": {
+    "name": "Bethpage Black",
+    "address": "",
+    "city": "Farmingdale",
+    "state": "NY",
+    "zip": "",
+    "phone": "",
+    "website": "",
+    "lat": 40.7449,
+    "lon": -73.4539
+  },
+  "holes": [
+    {
+      "par": 4,
+      "distance": 430,
+      "handicap": 1,
+      "image": null,
+      "image2x": null,
+      "green": {
+        "image": null,
+        "image2x": null,
+        "maskScale": 1.0,
+        "rotation": 1.3532501679793147,
+        "lon": -73.44951408495776,
+        "lat": 40.74610932094722,
+        "lon2x": 84053.73550874124,
+        "lat2y": 110944.0,
+        "lunit": 1,
+        "imageScale": 1.601600583495395,
+        "depth": 27.91487968167125,
+        "blurb": {
+          "allowedit": false,
+          "text": null
+        },
+        "points": [
+          {
+            "x": 0.3475458647134988,
+            "y": 2.6273966538368145,
+            "name": "green_front"
+          },
+          {
+            "x": 0.0,
+            "y": 0.0,
+            "name": "green_center"
+          },
+          {
+            "x": -0.3475443386062994,
+            "y": -2.627397320901694,
+            "name": "green_back"
+          }
+        ]
+      },
+      "blurb": {
+        "allowedit": false,
+        "text": null
+      },
+      "points": [
+        {
+          "x": 32.11583364824649,
+          "y": 242.832842656866,
+          "name": "tee"
+        },
+        {
+          "x": 18.722609772718304,
+          "y": 116.2517869457575,
+          "name": "dogleg"
+        },
+        {
+          "x": 0.3475458647134988,
+          "y": 2.6273966538368145,
+          "name": "green_front"
+        },
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "name": "green_center"
+        },
+        {
+          "x": -0.3475443386062994,
+          "y": -2.627397320901694,
+          "name": "green_back"
+        }
+      ],
+      "features": [
+        {
+          "type": "green",
+          "descrip": null,
+          "icon": null,
+          "frontlat": 40.746096235524355,
+          "frontlon": -73.44956153932463,
+          "backlat": 40.74612240635065,
+          "backlon": -73.44946663057219,
+          "centerlat": 40.74610932094722,
+          "centerlon": -73.44951408495776
+        },
+        {
+          "type": "fairwaybunker",
+          "descrip": "Left Fairway Bunker",
+          "icon": null,
+          "frontlat": 40.74524930778555,
+          "frontlon": -73.45235219802541,
+          "backlat": 40.74527945432195,
+          "backlon": -73.45239779880139,
+          "centerlat": 40.74524930778555,
+          "centerlon": -73.45235219802541
+        },
+        {
+          "type": "fairwaybunker",
+          "descrip": "Right Fairway Bunker",
+          "icon": null,
+          "frontlat": 40.745423902201644,
+          "frontlon": -73.45199029962008,
+          "backlat": 40.74547116408478,
+          "backlon": -73.45196779001485,
+          "centerlat": 40.745423902201644,
+          "centerlon": -73.45199029962008
+        },
+        {
+          "type": "water",
+          "descrip": "Water Hazard",
+          "icon": null,
+          "frontlat": 40.74551658002575,
+          "frontlon": -73.45172643155745,
+          "backlat": null,
+          "backlon": null,
+          "centerlat": 40.74551658002575,
+          "centerlon": -73.45172643155745
+        }
+      ]
+    },
+    {
+      "par": 4,
+      "distance": 389,
+      "handicap": 2,
+      "image": null,
+      "image2x": null,
+      "green": {
+        "image": null,
+        "image2x": null,
+        "maskScale": 1.0,
+        "rotation": 5.786662488735608,
+        "lon": -73.4507911530214,
+        "lat": 40.748777122253735,
+        "lon2x": 84053.73550874124,
+        "lat2y": 110944.0,
+        "lunit": 1,
+        "imageScale": 1.74421391476921,
+        "depth": 39.41983848197459,
+        "blurb": {
+          "allowedit": false,
+          "text": null
+        },
+        "points": [
+          {
+            "x": -0.5048450844939112,
+            "y": 3.399259174782907,
+            "name": "green_front"
+          },
+          {
+            "x": 0.0,
+            "y": 0.0,
+            "name": "green_center"
+          },
+          {
+            "x": 0.5048433506625698,
+            "y": -3.3992597425254827,
+            "name": "green_back"
+          }
+        ]
+      },
+      "blurb": {
+        "allowedit": false,
+        "text": null
+      },
+      "points": [
+        {
+          "x": -29.890930554376354,
+          "y": 201.2654551507746,
+          "name": "tee"
+        },
+        {
+          "x": -2.310367693995545,
+          "y": 93.47289073857672,
+          "name": "dogleg"
+        },
+        {
+          "x": -0.5048450844939112,
+          "y": 3.399259174782907,
+          "name": "green_front"
+        },
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "name": "green_center"
+        },
+        {
+          "x": 0.5048433506625698,
+          "y": -3.3992597425254827,
+          "name": "green_back"
+        }
+      ],
+      "features": [
+        {
+          "type": "green",
+          "descrip": null,
+          "icon": null,
+          "frontlat": 40.748726353012444,
+          "frontlon": -73.45076676153266,
+          "backlat": 40.74882789148989,
+          "backlon": -73.45081554454738,
+          "centerlat": 40.748777122253735,
+          "centerlon": -73.4507911530214
+        },
+        {
+          "type": "greensidebunker",
+          "descrip": "Left Greenside Bunker",
+          "icon": null,
+          "frontlat": 40.74878157837355,
+          "frontlon": -73.45106181185302,
+          "backlat": 40.74878277688907,
+          "backlon": -73.45110635278934,
+          "centerlat": 40.74878157837355,
+          "centerlon": -73.45106181185302
+        }
+      ]
+    },
+    {
+      "par": 3,
+      "distance": 230,
+      "handicap": 3,
+      "image": null,
+      "image2x": null,
+      "green": {
+        "image": null,
+        "image2x": null,
+        "maskScale": 1.0,
+        "rotation": 4.3593744541717285,
+        "lon": -73.4526204452461,
+        "lat": 40.7482206848689,
+        "lon2x": 84053.73550874124,
+        "lat2y": 110944.0,
+        "lunit": 1,
+        "imageScale": 2.425864078250663,
+        "depth": 36.751470521555106,
+        "blurb": {
+          "allowedit": false,
+          "text": null
+        },
+        "points": [
+          {
+            "x": -0.40901555044097304,
+            "y": 2.267138318267384,
+            "name": "green_front"
+          },
+          {
+            "x": -0.0,
+            "y": 0.0,
+            "name": "green_center"
+          },
+          {
+            "x": 0.40901375640136917,
+            "y": -2.267138343280798,
+            "name": "green_back"
+          }
+        ]
+      },
+      "blurb": {
+        "allowedit": false,
+        "text": null
+      },
+      "points": [
+        {
+          "x": -15.357183588167498,
+          "y": 85.1303637942536,
+          "name": "tee"
+        },
+        {
+          "x": -6.602056854413631,
+          "y": 46.188998561826885,
+          "name": "dogleg"
+        },
+        {
+          "x": -0.40901555044097304,
+          "y": 2.267138318267384,
+          "name": "green_front"
+        },
+        {
+          "x": -0.0,
+          "y": 0.0,
+          "name": "green_center"
+        },
+        {
+          "x": 0.40901375640136917,
+          "y": -2.267138343280798,
+          "name": "green_back"
+        }
+      ],
+      "features": [
+        {
+          "type": "green",
+          "descrip": null,
+          "icon": null,
+          "frontlat": 40.74822943156479,
+          "frontlon": -73.45255496734978,
+          "backlat": 40.74821193813601,
+          "backlon": -73.45268592312519,
+          "centerlat": 40.7482206848689,
+          "centerlon": -73.4526204452461
+        },
+        {
+          "type": "greensidebunker",
+          "descrip": "Left Greenside Bunker",
+          "icon": null,
+          "frontlat": 40.74808621331691,
+          "frontlon": -73.45274090818553,
+          "backlat": 40.748071988032116,
+          "backlon": -73.45278877841828,
+          "centerlat": 40.74808621331691,
+          "centerlon": -73.45274090818553
+        },
+        {
+          "type": "water",
+          "descrip": "Water Hazard",
+          "icon": null,
+          "frontlat": 40.74818975298746,
+          "frontlon": -73.45132190774537,
+          "backlat": null,
+          "backlon": null,
+          "centerlat": 40.74818975298746,
+          "centerlon": -73.45132190774537
+        }
+      ]
+    },
+    {
+      "par": 5,
+      "distance": 517,
+      "handicap": 4,
+      "image": null,
+      "image2x": null,
+      "green": {
+        "image": null,
+        "image2x": null,
+        "maskScale": 1.0,
+        "rotation": 2.7816736246627127,
+        "lon": -73.4515342027634,
+        "lat": 40.744573827933394,
+        "lon2x": 84053.73550874124,
+        "lat2y": 110944.0,
+        "lunit": 1,
+        "imageScale": 2.3627344731843984,
+        "depth": 26.992932094456357,
+        "blurb": {
+          "allowedit": false,
+          "text": null
+        },
+        "points": [
+          {
+            "x": -0.3202044044411873,
+            "y": 1.7073901666155444,
+            "name": "green_front"
+          },
+          {
+            "x": 0.0,
+            "y": -0.0,
+            "name": "green_center"
+          },
+          {
+            "x": 0.32020472422529356,
+            "y": -1.7073900776478927,
+            "name": "green_back"
+          }
+        ]
+      },
+      "blurb": {
+        "allowedit": false,
+        "text": null
+      },
+      "points": [
+        {
+          "x": -36.79764705558103,
+          "y": 196.21169724057225,
+          "name": "tee"
+        },
+        {
+          "x": -18.267563623433773,
+          "y": 99.3834321603766,
+          "name": "dogleg"
+        },
+        {
+          "x": -0.3202044044411873,
+          "y": 1.7073901666155444,
+          "name": "green_front"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "name": "green_center"
+        },
+        {
+          "x": 0.32020472422529356,
+          "y": -1.7073900776478927,
+          "name": "green_back"
+        }
+      ],
+      "features": [
+        {
+          "type": "green",
+          "descrip": null,
+          "icon": null,
+          "frontlat": 40.74461026148522,
+          "frontlon": -73.45154268216481,
+          "backlat": 40.74453739438094,
+          "backlon": -73.45152572337128,
+          "centerlat": 40.744573827933394,
+          "centerlon": -73.4515342027634
+        },
+        {
+          "type": "fairwaybunker",
+          "descrip": "Left Fairway Bunker",
+          "icon": null,
+          "frontlat": 40.74613095327234,
+          "frontlon": -73.45184829794417,
+          "backlat": 40.74616388256165,
+          "backlon": -73.45182848730255,
+          "centerlat": 40.74613095327234,
+          "centerlon": -73.45184829794417
+        },
+        {
+          "type": "greensidebunker",
+          "descrip": "Right Greenside Bunker",
+          "icon": null,
+          "frontlat": 40.744422617488915,
+          "frontlon": -73.45124012054305,
+          "backlat": 40.744397449442474,
+          "backlon": -73.45124201147446,
+          "centerlat": 40.744422617488915,
+          "centerlon": -73.45124012054305
+        },
+        {
+          "type": "greensidebunker",
+          "descrip": "Left Greenside Bunker",
+          "icon": null,
+          "frontlat": 40.744495268885146,
+          "frontlon": -73.45170511288966,
+          "backlat": 40.744509510866855,
+          "backlon": -73.45173906408662,
+          "centerlat": 40.744495268885146,
+          "centerlon": -73.45170511288966
+        }
+      ]
+    },
+    {
+      "par": 4,
+      "distance": 478,
+      "handicap": 5,
+      "image": null,
+      "image2x": null,
+      "green": {
+        "image": null,
+        "image2x": null,
+        "maskScale": 1.0,
+        "rotation": 2.026742517748168,
+        "lon": -73.44695882253104,
+        "lat": 40.74364084541099,
+        "lon2x": 84053.73550874124,
+        "lat2y": 110944.0,
+        "lunit": 1,
+        "imageScale": 2.1364536432086654,
+        "depth": 35.94395776647178,
+        "blurb": {
+          "allowedit": false,
+          "text": null
+        },
+        "points": [
+          {
+            "x": 0.2728830913388517,
+            "y": 2.5435717378305855,
+            "name": "green_front"
+          },
+          {
+            "x": 0.0,
+            "y": -0.0,
+            "name": "green_center"
+          },
+          {
+            "x": -0.27288105287670017,
+            "y": -2.5435713806381868,
+            "name": "green_back"
+          }
+        ]
+      },
+      "blurb": {
+        "allowedit": false,
+        "text": null
+      },
+      "points": [
+        {
+          "x": 21.768718297158898,
+          "y": 202.95615691725394,
+          "name": "tee"
+        },
+        {
+          "x": 10.143292377013005,
+          "y": 108.1114524547409,
+          "name": "dogleg"
+        },
+        {
+          "x": 0.2728830913388517,
+          "y": 2.5435717378305855,
+          "name": "green_front"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "name": "green_center"
+        },
+        {
+          "x": -0.27288105287670017,
+          "y": -2.5435713806381868,
+          "name": "green_back"
+        }
+      ],
+      "features": [
+        {
+          "type": "green",
+          "descrip": null,
+          "icon": null,
+          "frontlat": 40.743657694528494,
+          "frontlon": -73.44701992382322,
+          "backlat": 40.74362399626126,
+          "backlon": -73.44689772126983,
+          "centerlat": 40.74364084541099,
+          "centerlon": -73.44695882253104
+        },
+        {
+          "type": "greensidebunker",
+          "descrip": "Left Greenside Bunker",
+          "icon": null,
+          "frontlat": 40.74346496292965,
+          "frontlon": -73.44685467060323,
+          "backlat": 40.74343760136395,
+          "backlon": -73.446849247733,
+          "centerlat": 40.74346496292965,
+          "centerlon": -73.44685467060323
+        }
+      ]
+    },
+    {
+      "par": 4,
+      "distance": 408,
+      "handicap": 6,
+      "image": null,
+      "image2x": null,
+      "green": {
+        "image": null,
+        "image2x": null,
+        "maskScale": 1.0,
+        "rotation": 5.773359541047577,
+        "lon": -73.44929007410481,
+        "lat": 40.746860749549505,
+        "lon2x": 84053.73550874124,
+        "lat2y": 110944.0,
+        "lunit": 1,
+        "imageScale": 2.361914881082808,
+        "depth": 28.39853424968579,
+        "blurb": {
+          "allowedit": false,
+          "text": null
+        },
+        "points": [
+          {
+            "x": -0.2926291796566636,
+            "y": 1.8046849465059902,
+            "name": "green_front"
+          },
+          {
+            "x": 0.0,
+            "y": 0.0,
+            "name": "green_center"
+          },
+          {
+            "x": 0.29262851814247326,
+            "y": -1.8046851737489744,
+            "name": "green_back"
+          }
+        ]
+      },
+      "blurb": {
+        "allowedit": false,
+        "text": null
+      },
+      "points": [
+        {
+          "x": -25.22485743589945,
+          "y": 155.5663915989404,
+          "name": "tee"
+        },
+        {
+          "x": -8.419094233358393,
+          "y": 70.85504133479715,
+          "name": "dogleg"
+        },
+        {
+          "x": -0.2926291796566636,
+          "y": 1.8046849465059902,
+          "name": "green_front"
+        },
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "name": "green_center"
+        },
+        {
+          "x": 0.29262851814247326,
+          "y": -1.8046851737489744,
+          "name": "green_back"
+        }
+      ],
+      "features": [
+        {
+          "type": "green",
+          "descrip": null,
+          "icon": null,
+          "frontlat": 40.74682417476705,
+          "frontlon": -73.44927250268033,
+          "backlat": 40.74689732432931,
+          "backlon": -73.44930764554863,
+          "centerlat": 40.746860749549505,
+          "centerlon": -73.44929007410481
+        },
+        {
+          "type": "fairwaybunker",
+          "descrip": "Left Fairway Bunker",
+          "icon": null,
+          "frontlat": 40.74495420165441,
+          "frontlon": -73.44831635414188,
+          "backlat": 40.74494947538678,
+          "backlon": -73.44829903932335,
+          "centerlat": 40.74495420165441,
+          "centerlon": -73.44831635414188
+        },
+        {
+          "type": "greensidebunker",
+          "descrip": "Right Greenside Bunker",
+          "icon": null,
+          "frontlat": 40.74692116847304,
+          "frontlon": -73.44946783103795,
+          "backlat": 40.7469461002785,
+          "backlon": -73.4494859435879,
+          "centerlat": 40.74692116847304,
+          "centerlon": -73.44946783103795
+        }
+      ]
+    },
+    {
+      "par": 4,
+      "distance": 524,
+      "handicap": 7,
+      "image": null,
+      "image2x": null,
+      "green": {
+        "image": null,
+        "image2x": null,
+        "maskScale": 1.0,
+        "rotation": 0.954917318349799,
+        "lon": -73.44326354509512,
+        "lat": 40.74836042985389,
+        "lon2x": 84053.73550874124,
+        "lat2y": 110944.0,
+        "lunit": 1,
+        "imageScale": 2.3628909355724153,
+        "depth": 35.57326828039036,
+        "blurb": {
+          "allowedit": false,
+          "text": null
+        },
+        "points": [
+          {
+            "x": -0.6036314804387914,
+            "y": 2.2082912343141663,
+            "name": "green_front"
+          },
+          {
+            "x": 0.0,
+            "y": 0.0,
+            "name": "green_center"
+          },
+          {
+            "x": 0.6036333138143662,
+            "y": -2.2082912584119856,
+            "name": "green_back"
+          }
+        ]
+      },
+      "blurb": {
+        "allowedit": false,
+        "text": null
+      },
+      "points": [
+        {
+          "x": -53.354342305977994,
+          "y": 195.1675814462948,
+          "name": "tee"
+        },
+        {
+          "x": -29.102805252263217,
+          "y": 104.56165173208731,
+          "name": "dogleg"
+        },
+        {
+          "x": -0.6036314804387914,
+          "y": 2.2082912343141663,
+          "name": "green_front"
+        },
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "name": "green_center"
+        },
+        {
+          "x": 0.6036333138143662,
+          "y": -2.2082912584119856,
+          "name": "green_back"
+        }
+      ],
+      "features": [
+        {
+          "type": "green",
+          "descrip": null,
+          "icon": null,
+          "frontlat": 40.74834375446934,
+          "frontlon": -73.4433240205117,
+          "backlat": 40.74837710520686,
+          "backlon": -73.44320306964822,
+          "centerlat": 40.74836042985389,
+          "centerlon": -73.44326354509512
+        },
+        {
+          "type": "greensidebunker",
+          "descrip": "Left Greenside Bunker",
+          "icon": null,
+          "frontlat": 40.74855509289867,
+          "frontlon": -73.4431482630361,
+          "backlat": 40.74857015529234,
+          "backlon": -73.44315483233589,
+          "centerlat": 40.74855509289867,
+          "centerlon": -73.4431482630361
+        },
+        {
+          "type": "fairwaybunker",
+          "descrip": "Right Fairway Bunker",
+          "icon": null,
+          "frontlat": 40.74786983327905,
+          "frontlon": -73.4449678847824,
+          "backlat": 40.74782510274558,
+          "backlon": -73.44497899339325,
+          "centerlat": 40.74786983327905,
+          "centerlon": -73.4449678847824
+        },
+        {
+          "type": "water",
+          "descrip": "Water Hazard",
+          "icon": null,
+          "frontlat": 40.74787746911287,
+          "frontlon": -73.44484442004,
+          "backlat": null,
+          "backlon": null,
+          "centerlat": 40.74787746911287,
+          "centerlon": -73.44484442004
+        }
+      ]
+    },
+    {
+      "par": 3,
+      "distance": 210,
+      "handicap": 8,
+      "image": null,
+      "image2x": null,
+      "green": {
+        "image": null,
+        "image2x": null,
+        "maskScale": 1.0,
+        "rotation": 3.329309022125104,
+        "lon": -73.44401832909003,
+        "lat": 40.74622980424671,
+        "lon2x": 84053.73550874124,
+        "lat2y": 110944.0,
+        "lunit": 1,
+        "imageScale": 2.39256097400405,
+        "depth": 36.992791032690235,
+        "blurb": {
+          "allowedit": false,
+          "text": null
+        },
+        "points": [
+          {
+            "x": -0.37770983486315907,
+            "y": 2.320494934583239,
+            "name": "green_front"
+          },
+          {
+            "x": -0.0,
+            "y": 0.0,
+            "name": "green_center"
+          },
+          {
+            "x": 0.3777086638022925,
+            "y": -2.320494925098825,
+            "name": "green_back"
+          }
+        ]
+      },
+      "blurb": {
+        "allowedit": false,
+        "text": null
+      },
+      "points": [
+        {
+          "x": -12.865015084620737,
+          "y": 79.03777872082006,
+          "name": "tee"
+        },
+        {
+          "x": -5.075938446288871,
+          "y": 40.017104855905835,
+          "name": "dogleg"
+        },
+        {
+          "x": -0.37770983486315907,
+          "y": 2.320494934583239,
+          "name": "green_front"
+        },
+        {
+          "x": -0.0,
+          "y": 0.0,
+          "name": "green_center"
+        },
+        {
+          "x": 0.3777086638022925,
+          "y": -2.320494925098825,
+          "name": "green_back"
+        }
+      ],
+      "features": [
+        {
+          "type": "green",
+          "descrip": null,
+          "icon": null,
+          "frontlat": 40.746277447662365,
+          "frontlon": -73.44399544020835,
+          "backlat": 40.74618216082654,
+          "backlon": -73.4440412179389,
+          "centerlat": 40.74622980424671,
+          "centerlon": -73.44401832909003
+        },
+        {
+          "type": "greensidebunker",
+          "descrip": "Left Greenside Bunker",
+          "icon": null,
+          "frontlat": 40.74611140110942,
+          "frontlon": -73.44436667329215,
+          "backlat": 40.746107148635254,
+          "backlon": -73.44439079953739,
+          "centerlat": 40.74611140110942,
+          "centerlon": -73.44436667329215
+        },
+        {
+          "type": "greensidebunker",
+          "descrip": "Right Greenside Bunker",
+          "icon": null,
+          "frontlat": 40.74615757252352,
+          "frontlon": -73.4442308366588,
+          "backlat": 40.74619521551066,
+          "backlon": -73.44426884021324,
+          "centerlat": 40.74615757252352,
+          "centerlon": -73.4442308366588
+        },
+        {
+          "type": "water",
+          "descrip": "Water Hazard",
+          "icon": null,
+          "frontlat": 40.74660073744076,
+          "frontlon": -73.44349215925004,
+          "backlat": null,
+          "backlon": null,
+          "centerlat": 40.74660073744076,
+          "centerlon": -73.44349215925004
+        }
+      ]
+    },
+    {
+      "par": 4,
+      "distance": 460,
+      "handicap": 9,
+      "image": null,
+      "image2x": null,
+      "green": {
+        "image": null,
+        "image2x": null,
+        "maskScale": 1.0,
+        "rotation": 4.686151737607231,
+        "lon": -73.44898191708943,
+        "lat": 40.747286597750836,
+        "lon2x": 84053.73550874124,
+        "lat2y": 110944.0,
+        "lunit": 1,
+        "imageScale": 1.5305431596965065,
+        "depth": 36.2452869185171,
+        "blurb": {
+          "allowedit": false,
+          "text": null
+        },
+        "points": [
+          {
+            "x": -0.7181087025044939,
+            "y": 3.5286860054764926,
+            "name": "green_front"
+          },
+          {
+            "x": -0.0,
+            "y": 0.0,
+            "name": "green_center"
+          },
+          {
+            "x": 0.7181061193538444,
+            "y": -3.5286869944863466,
+            "name": "green_back"
+          }
+        ]
+      },
+      "blurb": {
+        "allowedit": false,
+        "text": null
+      },
+      "points": [
+        {
+          "x": -54.674761345655966,
+          "y": 268.70202348276086,
+          "name": "tee"
+        },
+        {
+          "x": -31.88680179362685,
+          "y": 123.89983136532803,
+          "name": "dogleg"
+        },
+        {
+          "x": -0.7181087025044939,
+          "y": 3.5286860054764926,
+          "name": "green_front"
+        },
+        {
+          "x": -0.0,
+          "y": 0.0,
+          "name": "green_center"
+        },
+        {
+          "x": 0.7181061193538444,
+          "y": -3.5286869944863466,
+          "name": "green_back"
+        }
+      ],
+      "features": [
+        {
+          "type": "green",
+          "descrip": null,
+          "icon": null,
+          "frontlat": 40.74727797148829,
+          "frontlon": -73.44891734195409,
+          "backlat": 40.7472952239774,
+          "backlon": -73.44904649224154,
+          "centerlat": 40.747286597750836,
+          "centerlon": -73.44898191708943
+        }
+      ]
+    },
+    {
+      "par": 4,
+      "distance": 502,
+      "handicap": 10,
+      "image": null,
+      "image2x": null,
+      "green": {
+        "image": null,
+        "image2x": null,
+        "maskScale": 1.0,
+        "rotation": 3.3514588469058104,
+        "lon": -73.44838710155769,
+        "lat": 40.74337226379222,
+        "lon2x": 84053.73550874124,
+        "lat2y": 110944.0,
+        "lunit": 1,
+        "imageScale": 1.8575669299349475,
+        "depth": 35.20567192277084,
+        "blurb": {
+          "allowedit": false,
+          "text": null
+        },
+        "points": [
+          {
+            "x": 0.6003738595636983,
+            "y": 2.8186227030288715,
+            "name": "green_front"
+          },
+          {
+            "x": -0.0,
+            "y": 0.0,
+            "name": "green_center"
+          },
+          {
+            "x": -0.6003738595636983,
+            "y": -2.8186227030288715,
+            "name": "green_back"
+          }
+        ]
+      },
+      "blurb": {
+        "allowedit": false,
+        "text": null
+      },
+      "points": [
+        {
+          "x": 51.36462297959992,
+          "y": 241.14556314632196,
+          "name": "tee"
+        },
+        {
+          "x": 28.117307470189488,
+          "y": 118.79229035976797,
+          "name": "dogleg"
+        },
+        {
+          "x": 0.6003738595636983,
+          "y": 2.8186227030288715,
+          "name": "green_front"
+        },
+        {
+          "x": -0.0,
+          "y": 0.0,
+          "name": "green_center"
+        },
+        {
+          "x": -0.6003738595636983,
+          "y": -2.8186227030288715,
+          "name": "green_back"
+        }
+      ],
+      "features": [
+        {
+          "type": "green",
+          "descrip": null,
+          "icon": null,
+          "frontlat": 40.743420515493646,
+          "frontlon": -73.44838710155769,
+          "backlat": 40.74332401209079,
+          "backlon": -73.44838710155769,
+          "centerlat": 40.74337226379222,
+          "centerlon": -73.44838710155769
+        },
+        {
+          "type": "greensidebunker",
+          "descrip": "Left Greenside Bunker",
+          "icon": null,
+          "frontlat": 40.74316707008261,
+          "frontlon": -73.4481082432322,
+          "backlat": 40.743144051284006,
+          "backlon": -73.44815600340605,
+          "centerlat": 40.74316707008261,
+          "centerlon": -73.4481082432322
+        }
+      ]
+    },
+    {
+      "par": 4,
+      "distance": 435,
+      "handicap": 11,
+      "image": null,
+      "image2x": null,
+      "green": {
+        "image": null,
+        "image2x": null,
+        "maskScale": 1.0,
+        "rotation": 1.8586742416181414,
+        "lon": -73.44397842412737,
+        "lat": 40.743663090988804,
+        "lon2x": 84053.73550874124,
+        "lat2y": 110944.0,
+        "lunit": 1,
+        "imageScale": 2.1587878557948295,
+        "depth": 30.18496787423314,
+        "blurb": {
+          "allowedit": false,
+          "text": null
+        },
+        "points": [
+          {
+            "x": 0.6036289171150004,
+            "y": 2.0385738872298202,
+            "name": "green_front"
+          },
+          {
+            "x": 0.0,
+            "y": -0.0,
+            "name": "green_center"
+          },
+          {
+            "x": -0.6036276497876566,
+            "y": -2.0385742630665424,
+            "name": "green_back"
+          }
+        ]
+      },
+      "blurb": {
+        "allowedit": false,
+        "text": null
+      },
+      "points": [
+        {
+          "x": 52.1891141491028,
+          "y": 176.27054399112808,
+          "name": "tee"
+        },
+        {
+          "x": 28.08724371616807,
+          "y": 80.97004906801958,
+          "name": "dogleg"
+        },
+        {
+          "x": 0.6036289171150004,
+          "y": 2.0385738872298202,
+          "name": "green_front"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "name": "green_center"
+        },
+        {
+          "x": -0.6036276497876566,
+          "y": -2.0385742630665424,
+          "name": "green_back"
+        }
+      ],
+      "features": [
+        {
+          "type": "green",
+          "descrip": null,
+          "icon": null,
+          "frontlat": 40.74366309097594,
+          "frontlon": -73.44403302875328,
+          "backlat": 40.74366309097594,
+          "backlon": -73.44392381950144,
+          "centerlat": 40.743663090988804,
+          "centerlon": -73.44397842412737
+        },
+        {
+          "type": "greensidebunker",
+          "descrip": "Left Greenside Bunker",
+          "icon": null,
+          "frontlat": 40.74348202667119,
+          "frontlon": -73.44388551171014,
+          "backlat": 40.743433706203795,
+          "backlon": -73.44390356570949,
+          "centerlat": 40.74348202667119,
+          "centerlon": -73.44388551171014
+        }
+      ]
+    },
+    {
+      "par": 4,
+      "distance": 501,
+      "handicap": 12,
+      "image": null,
+      "image2x": null,
+      "green": {
+        "image": null,
+        "image2x": null,
+        "maskScale": 1.0,
+        "rotation": 6.165343832030509,
+        "lon": -73.44576188570562,
+        "lat": 40.74743362406304,
+        "lon2x": 84053.73550874124,
+        "lat2y": 110944.0,
+        "lunit": 1,
+        "imageScale": 1.6776335888712213,
+        "depth": 32.938228920535124,
+        "blurb": {
+          "allowedit": false,
+          "text": null
+        },
+        "points": [
+          {
+            "x": 0.16917699869216135,
+            "y": 2.9806364888905157,
+            "name": "green_front"
+          },
+          {
+            "x": 0.0,
+            "y": 0.0,
+            "name": "green_center"
+          },
+          {
+            "x": -0.16917769319372084,
+            "y": -2.9806365091269744,
+            "name": "green_back"
+          }
+        ]
+      },
+      "blurb": {
+        "allowedit": false,
+        "text": null
+      },
+      "points": [
+        {
+          "x": 15.439448400019842,
+          "y": 272.01781293272904,
+          "name": "tee"
+        },
+        {
+          "x": 13.91895676398148,
+          "y": 138.22441918411062,
+          "name": "dogleg"
+        },
+        {
+          "x": 0.16917699869216135,
+          "y": 2.9806364888905157,
+          "name": "green_front"
+        },
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "name": "green_center"
+        },
+        {
+          "x": -0.16917769319372084,
+          "y": -2.9806365091269744,
+          "name": "green_back"
+        }
+      ],
+      "features": [
+        {
+          "type": "green",
+          "descrip": null,
+          "icon": null,
+          "frontlat": 40.74738916588084,
+          "frontlon": -73.44575153825114,
+          "backlat": 40.747478082244314,
+          "backlon": -73.44577223317391,
+          "centerlat": 40.74743362406304,
+          "centerlon": -73.44576188570562
+        },
+        {
+          "type": "fairwaybunker",
+          "descrip": "Left Fairway Bunker",
+          "icon": null,
+          "frontlat": 40.74584673592102,
+          "frontlon": -73.44541784392388,
+          "backlat": 40.74589124669074,
+          "backlon": -73.44546694370572,
+          "centerlat": 40.74584673592102,
+          "centerlon": -73.44541784392388
+        },
+        {
+          "type": "greensidebunker",
+          "descrip": "Right Greenside Bunker",
+          "icon": null,
+          "frontlat": 40.7475810960876,
+          "frontlon": -73.44562130406348,
+          "backlat": 40.74758029913083,
+          "backlon": -73.44557948277416,
+          "centerlat": 40.7475810960876,
+          "centerlon": -73.44562130406348
+        },
+        {
+          "type": "water",
+          "descrip": "Water Hazard",
+          "icon": null,
+          "frontlat": 40.74586191822097,
+          "frontlon": -73.4455109492355,
+          "backlat": null,
+          "backlon": null,
+          "centerlat": 40.74586191822097,
+          "centerlon": -73.4455109492355
+        }
+      ]
+    },
+    {
+      "par": 5,
+      "distance": 608,
+      "handicap": 13,
+      "image": null,
+      "image2x": null,
+      "green": {
+        "image": null,
+        "image2x": null,
+        "maskScale": 1.0,
+        "rotation": 4.094829132712271,
+        "lon": -73.45126254737973,
+        "lat": 40.7456394450582,
+        "lon2x": 84053.73550874124,
+        "lat2y": 110944.0,
+        "lunit": 1,
+        "imageScale": 1.659386175577414,
+        "depth": 37.21053843135365,
+        "blurb": {
+          "allowedit": false,
+          "text": null
+        },
+        "points": [
+          {
+            "x": -0.904558995834749,
+            "y": 3.2876110436606956,
+            "name": "green_front"
+          },
+          {
+            "x": -0.0,
+            "y": 0.0,
+            "name": "green_center"
+          },
+          {
+            "x": 0.9045561406519689,
+            "y": -3.2876110107937926,
+            "name": "green_back"
+          }
+        ]
+      },
+      "blurb": {
+        "allowedit": false,
+        "text": null
+      },
+      "points": [
+        {
+          "x": -88.67083175364466,
+          "y": 322.31310317285477,
+          "name": "tee"
+        },
+        {
+          "x": -34.60887610901638,
+          "y": 160.37503373714162,
+          "name": "dogleg"
+        },
+        {
+          "x": -0.904558995834749,
+          "y": 3.2876110436606956,
+          "name": "green_front"
+        },
+        {
+          "x": -0.0,
+          "y": 0.0,
+          "name": "green_center"
+        },
+        {
+          "x": 0.9045561406519689,
+          "y": -3.2876110107937926,
+          "name": "green_back"
+        }
+      ],
+      "features": [
+        {
+          "type": "green",
+          "descrip": null,
+          "icon": null,
+          "frontlat": 40.745656887898456,
+          "frontlon": -73.45119929112008,
+          "backlat": 40.74562200218342,
+          "backlon": -73.45132580360621,
+          "centerlat": 40.7456394450582,
+          "centerlon": -73.45126254737973
+        },
+        {
+          "type": "greensidebunker",
+          "descrip": "Left Greenside Bunker",
+          "icon": null,
+          "frontlat": 40.74577563652115,
+          "frontlon": -73.45163380262498,
+          "backlat": 40.74579895260771,
+          "backlon": -73.45164630010903,
+          "centerlat": 40.74577563652115,
+          "centerlon": -73.45163380262498
+        }
+      ]
+    },
+    {
+      "par": 3,
+      "distance": 161,
+      "handicap": 14,
+      "image": null,
+      "image2x": null,
+      "green": {
+        "image": null,
+        "image2x": null,
+        "maskScale": 1.0,
+        "rotation": 1.8316781978519028,
+        "lon": -73.44943566480148,
+        "lat": 40.74545168770278,
+        "lon2x": 84053.73550874124,
+        "lat2y": 110944.0,
+        "lunit": 1,
+        "imageScale": 2.2077017201069165,
+        "depth": 37.29561168076944,
+        "blurb": {
+          "allowedit": false,
+          "text": null
+        },
+        "points": [
+          {
+            "x": -0.6671109540903142,
+            "y": 2.4806254617584065,
+            "name": "green_front"
+          },
+          {
+            "x": 0.0,
+            "y": -0.0,
+            "name": "green_center"
+          },
+          {
+            "x": 0.6671128262316276,
+            "y": -2.48062419140291,
+            "name": "green_back"
+          }
+        ]
+      },
+      "blurb": {
+        "allowedit": false,
+        "text": null
+      },
+      "points": [
+        {
+          "x": -17.279458755099057,
+          "y": 64.25121489169115,
+          "name": "tee"
+        },
+        {
+          "x": -13.991641199858485,
+          "y": 35.419023567103146,
+          "name": "dogleg"
+        },
+        {
+          "x": -0.6671109540903142,
+          "y": 2.4806254617584065,
+          "name": "green_front"
+        },
+        {
+          "x": 0.0,
+          "y": -0.0,
+          "name": "green_center"
+        },
+        {
+          "x": 0.6671128262316276,
+          "y": -2.48062419140291,
+          "name": "green_back"
+        }
+      ],
+      "features": [
+        {
+          "type": "green",
+          "descrip": null,
+          "icon": null,
+          "frontlat": 40.74547724573908,
+          "frontlon": -73.4494940952111,
+          "backlat": 40.74542612963701,
+          "backlon": -73.4493772344368,
+          "centerlat": 40.74545168770278,
+          "centerlon": -73.44943566480148
+        },
+        {
+          "type": "greensidebunker",
+          "descrip": "Left Greenside Bunker",
+          "icon": null,
+          "frontlat": 40.74552693720142,
+          "frontlon": -73.44908551295778,
+          "backlat": 40.745505546163265,
+          "backlon": -73.44907186139417,
+          "centerlat": 40.74552693720142,
+          "centerlon": -73.44908551295778
+        }
+      ]
+    },
+    {
+      "par": 4,
+      "distance": 478,
+      "handicap": 15,
+      "image": null,
+      "image2x": null,
+      "green": {
+        "image": null,
+        "image2x": null,
+        "maskScale": 1.0,
+        "rotation": 0.3749412353285582,
+        "lon": -73.4472160421513,
+        "lat": 40.74882252959133,
+        "lon2x": 84053.73550874124,
+        "lat2y": 110944.0,
+        "lunit": 1,
+        "imageScale": 1.7691588277839663,
+        "depth": 31.29993029888389,
+        "blurb": {
+          "allowedit": false,
+          "text": null
+        },
+        "points": [
+          {
+            "x": -0.39851636079608,
+            "y": 2.660532457427096,
+            "name": "green_front"
+          },
+          {
+            "x": 0.0,
+            "y": 0.0,
+            "name": "green_center"
+          },
+          {
+            "x": 0.3985179168234816,
+            "y": -2.660532603896616,
+            "name": "green_back"
+          }
+        ]
+      },
+      "blurb": {
+        "allowedit": false,
+        "text": null
+      },
+      "points": [
+        {
+          "x": -36.51663176498732,
+          "y": 243.78182889123732,
+          "name": "tee"
+        },
+        {
+          "x": -22.049602008737033,
+          "y": 131.93341694790305,
+          "name": "dogleg"
+        },
+        {
+          "x": -0.39851636079608,
+          "y": 2.660532457427096,
+          "name": "green_front"
+        },
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "name": "green_center"
+        },
+        {
+          "x": 0.3985179168234816,
+          "y": -2.660532603896616,
+          "name": "green_back"
+        }
+      ],
+      "features": [
+        {
+          "type": "green",
+          "descrip": null,
+          "icon": null,
+          "frontlat": 40.74878537828948,
+          "frontlon": -73.44724435512879,
+          "backlat": 40.74885968088626,
+          "backlon": -73.4471877291422,
+          "centerlat": 40.74882252959133,
+          "centerlon": -73.4472160421513
+        },
+        {
+          "type": "greensidebunker",
+          "descrip": "Left Greenside Bunker",
+          "icon": null,
+          "frontlat": 40.7489441886432,
+          "frontlon": -73.4473449518188,
+          "backlat": 40.748924815078425,
+          "backlon": -73.44737531920514,
+          "centerlat": 40.7489441886432,
+          "centerlon": -73.4473449518188
+        },
+        {
+          "type": "greensidebunker",
+          "descrip": "Right Greenside Bunker",
+          "icon": null,
+          "frontlat": 40.74909158527093,
+          "frontlon": -73.44731678577094,
+          "backlat": 40.74913031928755,
+          "backlon": -73.44733768163108,
+          "centerlat": 40.74909158527093,
+          "centerlon": -73.44731678577094
+        }
+      ]
+    },
+    {
+      "par": 4,
+      "distance": 479,
+      "handicap": 16,
+      "image": null,
+      "image2x": null,
+      "green": {
+        "image": null,
+        "image2x": null,
+        "maskScale": 1.0,
+        "rotation": 5.125468928671595,
+        "lon": -73.4517275395035,
+        "lat": 40.750288877156635,
+        "lon2x": 84053.73550874124,
+        "lat2y": 110944.0,
+        "lunit": 1,
+        "imageScale": 1.8682377080058425,
+        "depth": 29.95566187341511,
+        "blurb": {
+          "allowedit": false,
+          "text": null
+        },
+        "points": [
+          {
+            "x": -0.2688392712045281,
+            "y": 2.423376418308969,
+            "name": "green_front"
+          },
+          {
+            "x": 0.0,
+            "y": 0.0,
+            "name": "green_center"
+          },
+          {
+            "x": 0.26883771409529156,
+            "y": -2.423377159207062,
+            "name": "green_back"
+          }
+        ]
+      },
+      "blurb": {
+        "allowedit": false,
+        "text": null
+      },
+      "points": [
+        {
+          "x": -25.788088709983754,
+          "y": 232.50103563040392,
+          "name": "tee"
+        },
+        {
+          "x": -22.750120417382284,
+          "y": 111.03091466741418,
+          "name": "dogleg"
+        },
+        {
+          "x": -0.2688392712045281,
+          "y": 2.423376418308969,
+          "name": "green_front"
+        },
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "name": "green_center"
+        },
+        {
+          "x": 0.26883771409529156,
+          "y": -2.423377159207062,
+          "name": "green_back"
+        }
+      ],
+      "features": [
+        {
+          "type": "green",
+          "descrip": null,
+          "icon": null,
+          "frontlat": 40.75026834903939,
+          "frontlon": -73.45168060508887,
+          "backlat": 40.750309405254875,
+          "backlon": -73.4517744739471,
+          "centerlat": 40.750288877156635,
+          "centerlon": -73.4517275395035
+        },
+        {
+          "type": "fairwaybunker",
+          "descrip": "Left Fairway Bunker",
+          "icon": null,
+          "frontlat": 40.749113124212734,
+          "frontlon": -73.4494001039276,
+          "backlat": 40.74906710111341,
+          "backlon": -73.4493525330061,
+          "centerlat": 40.749113124212734,
+          "centerlon": -73.4494001039276
+        },
+        {
+          "type": "greensidebunker",
+          "descrip": "Right Greenside Bunker",
+          "icon": null,
+          "frontlat": 40.75023187246173,
+          "frontlon": -73.4519928099034,
+          "backlat": 40.75022460305461,
+          "backlon": -73.45204069628326,
+          "centerlat": 40.75023187246173,
+          "centerlon": -73.4519928099034
+        },
+        {
+          "type": "fairwaybunker",
+          "descrip": "Left Fairway Bunker",
+          "icon": null,
+          "frontlat": 40.74891267058454,
+          "frontlon": -73.44882871870848,
+          "backlat": 40.748895420300656,
+          "backlon": -73.44882503305631,
+          "centerlat": 40.74891267058454,
+          "centerlon": -73.44882871870848
+        }
+      ]
+    },
+    {
+      "par": 3,
+      "distance": 207,
+      "handicap": 17,
+      "image": null,
+      "image2x": null,
+      "green": {
+        "image": null,
+        "image2x": null,
+        "maskScale": 1.0,
+        "rotation": 3.2915105680300707,
+        "lon": -73.45124617668164,
+        "lat": 40.74835166049246,
+        "lon2x": 84053.73550874124,
+        "lat2y": 110944.0,
+        "lunit": 1,
+        "imageScale": 1.5000288562210087,
+        "depth": 34.85774962607191,
+        "blurb": {
+          "allowedit": false,
+          "text": null
+        },
+        "points": [
+          {
+            "x": -0.08699997246561608,
+            "y": 3.532421768186641,
+            "name": "green_front"
+          },
+          {
+            "x": -0.0,
+            "y": 0.0,
+            "name": "green_center"
+          },
+          {
+            "x": 0.08699910277286171,
+            "y": -3.5324217144156695,
+            "name": "green_back"
+          }
+        ]
+      },
+      "blurb": {
+        "allowedit": false,
+        "text": null
+      },
+      "points": [
+        {
+          "x": -3.0998321348270643,
+          "y": 125.86209734843366,
+          "name": "tee"
+        },
+        {
+          "x": -2.7493971085342164,
+          "y": 49.01686843538025,
+          "name": "dogleg"
+        },
+        {
+          "x": -0.08699997246561608,
+          "y": 3.532421768186641,
+          "name": "green_front"
+        },
+        {
+          "x": -0.0,
+          "y": 0.0,
+          "name": "green_center"
+        },
+        {
+          "x": 0.08699910277286171,
+          "y": -3.5324217144156695,
+          "name": "green_back"
+        }
+      ],
+      "features": [
+        {
+          "type": "green",
+          "descrip": null,
+          "icon": null,
+          "frontlat": 40.74839870953553,
+          "frontlon": -73.45123522604875,
+          "backlat": 40.748304611448354,
+          "backlon": -73.45125712729903,
+          "centerlat": 40.74835166049246,
+          "centerlon": -73.45124617668164
+        },
+        {
+          "type": "water",
+          "descrip": "Water Hazard",
+          "icon": null,
+          "frontlat": 40.74866648453401,
+          "frontlon": -73.45108528031822,
+          "backlat": null,
+          "backlon": null,
+          "centerlat": 40.74866648453401,
+          "centerlon": -73.45108528031822
+        }
+      ]
+    },
+    {
+      "par": 4,
+      "distance": 411,
+      "handicap": 18,
+      "image": null,
+      "image2x": null,
+      "green": {
+        "image": null,
+        "image2x": null,
+        "maskScale": 1.0,
+        "rotation": 0.6033996113225321,
+        "lon": -73.44804147288274,
+        "lat": 40.75105952735832,
+        "lon2x": 84053.73550874124,
+        "lat2y": 110944.0,
+        "lunit": 1,
+        "imageScale": 1.6829190074516271,
+        "depth": 35.61134255539859,
+        "blurb": {
+          "allowedit": false,
+          "text": null
+        },
+        "points": [
+          {
+            "x": -0.8561361477764171,
+            "y": 3.1017664610551474,
+            "name": "green_front"
+          },
+          {
+            "x": 0.0,
+            "y": 0.0,
+            "name": "green_center"
+          },
+          {
+            "x": 0.8561388497662505,
+            "y": -3.101766640381175,
+            "name": "green_back"
+          }
+        ]
+      },
+      "blurb": {
+        "allowedit": false,
+        "text": null
+      },
+      "points": [
+        {
+          "x": -59.28735252683468,
+          "y": 214.78715285086136,
+          "name": "tee"
+        },
+        {
+          "x": -20.411868426997415,
+          "y": 114.78460947471638,
+          "name": "dogleg"
+        },
+        {
+          "x": -0.8561361477764171,
+          "y": 3.1017664610551474,
+          "name": "green_front"
+        },
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "name": "green_center"
+        },
+        {
+          "x": 0.8561388497662505,
+          "y": -3.101766640381175,
+          "name": "green_back"
+        }
+      ],
+      "features": [
+        {
+          "type": "green",
+          "descrip": null,
+          "icon": null,
+          "frontlat": 40.751028154363084,
+          "frontlon": -73.44809082765249,
+          "backlat": 40.75109090033254,
+          "backlon": -73.4479921180664,
+          "centerlat": 40.75105952735832,
+          "centerlon": -73.44804147288274
+        },
+        {
+          "type": "fairwaybunker",
+          "descrip": "Left Fairway Bunker",
+          "icon": null,
+          "frontlat": 40.74981720593095,
+          "frontlon": -73.44975555299956,
+          "backlat": 40.749767685878936,
+          "backlon": -73.44971384538472,
+          "centerlat": 40.74981720593095,
+          "centerlon": -73.44975555299956
+        }
+      ]
+    }
+  ]
+}

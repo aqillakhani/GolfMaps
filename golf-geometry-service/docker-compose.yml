@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  golf-geometry-api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - GOOGLE_MAPS_API_KEY=${GOOGLE_MAPS_API_KEY}
+      - GOOGLE_CSE_API_KEY=${GOOGLE_CSE_API_KEY}
+      - GOOGLE_CSE_CX=${GOOGLE_CSE_CX}
+    volumes:
+      - ./cache:/app/cache
+    restart: unless-stopped

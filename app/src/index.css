@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 30% 97%;
+    --foreground: 150 35% 12%;
+
+    --card: 40 25% 95%;
+    --card-foreground: 150 35% 12%;
+
+    --popover: 40 30% 97%;
+    --popover-foreground: 150 35% 12%;
+
+    --primary: 145 45% 22%;
+    --primary-foreground: 40 30% 97%;
+
+    --secondary: 35 35% 85%;
+    --secondary-foreground: 150 35% 12%;
+
+    --muted: 100 15% 90%;
+    --muted-foreground: 150 15% 45%;
+
+    --accent: 200 55% 65%;
+    --accent-foreground: 200 80% 15%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 100 15% 85%;
+    --input: 100 15% 85%;
+    --ring: 145 45% 22%;
+
+    --radius: 1rem;
+
+    --sand: 35 40% 78%;
+    --sand-foreground: 35 35% 25%;
+    --water: 200 60% 68%;
+    --water-foreground: 200 80% 15%;
+    --fairway: 130 35% 45%;
+    --fairway-dark: 145 45% 22%;
+    --cream: 40 30% 97%;
+    --cream-dark: 40 25% 90%;
+    --gold: 42 78% 60%;
+    --gold-foreground: 42 60% 18%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 150 25% 8%;
+    --foreground: 40 30% 95%;
+    --card: 150 25% 12%;
+    --card-foreground: 40 30% 95%;
+    --popover: 150 25% 8%;
+    --popover-foreground: 40 30% 95%;
+    --primary: 130 40% 50%;
+    --primary-foreground: 150 35% 8%;
+    --secondary: 150 20% 18%;
+    --secondary-foreground: 40 30% 95%;
+    --muted: 150 15% 18%;
+    --muted-foreground: 100 10% 60%;
+    --accent: 200 55% 55%;
+    --accent-foreground: 200 80% 95%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 150 15% 20%;
+    --input: 150 15% 20%;
+    --ring: 130 40% 50%;
+    --gold: 42 78% 55%;
+    --gold-foreground: 42 60% 90%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  *::-webkit-scrollbar {
+    display: none;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer utilities {
+  .text-gradient-green {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(145 45% 22%), hsl(130 35% 45%));
+  }
+
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(42 78% 55%), hsl(35 70% 45%));
+  }
+
+  .bg-gradient-green {
+    background-image: linear-gradient(135deg, hsl(145 45% 22%), hsl(130 40% 35%));
+  }
+
+  .bg-gradient-cream {
+    background-image: linear-gradient(180deg, hsl(40 30% 97%), hsl(40 25% 93%));
+  }
+
+  .bg-gradient-premium {
+    background-image: linear-gradient(135deg, hsl(145 45% 22%) 0%, hsl(150 30% 15%) 50%, hsl(145 45% 22%) 100%);
+  }
+
+  .shadow-golf {
+    box-shadow: 0 8px 32px -8px hsl(145 45% 22% / 0.15);
+  }
+
+  .shadow-card {
+    box-shadow: 0 2px 16px -4px hsl(0 0% 0% / 0.08);
+  }
+
+  .shadow-poster {
+    box-shadow: 0 20px 60px -15px hsl(0 0% 0% / 0.25), 0 0 0 1px hsl(0 0% 0% / 0.05);
+  }
+
+  .shadow-elevated {
+    box-shadow: 0 12px 40px -12px hsl(0 0% 0% / 0.15), 0 4px 12px -4px hsl(0 0% 0% / 0.08);
+  }
+
+  .glass {
+    background: hsl(40 30% 97% / 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+  }
+
+  .glass-card {
+    background: hsl(40 25% 95% / 0.6);
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    border: 1px solid hsl(100 15% 85% / 0.5);
+  }
+
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      110deg,
+      transparent 25%,
+      hsl(40 30% 97% / 0.3) 37%,
+      transparent 63%
+    );
+    animation: shimmer 2.5s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  @keyframes golf-ball-bounce {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-18px); }
+  }
+
+  .golf-ball-bounce {
+    animation: golf-ball-bounce 0.9s ease-in-out infinite;
+  }
+}
