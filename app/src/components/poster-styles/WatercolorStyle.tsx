@@ -33,6 +33,24 @@ const WatercolorStyle = ({ course, toggles = DEFAULT_POSTER_TOGGLES, osmData, cu
       <ellipse cx="200" cy="230" rx="180" ry="160" fill="hsl(130, 30%, 85%)" opacity="0.25" filter="url(#watercolor-blur)" />
       <ellipse cx="140" cy="190" rx="80" ry="60" fill="hsl(200, 40%, 85%)" opacity="0.15" filter="url(#watercolor-blur)" />
 
+      {/* Map area — D3 GeoJSON rendering */}
+      {hasGeoJSON && (
+        <g transform="translate(15, 40)">
+          <GeoJSONMap
+            geojson={geojson!}
+            width={370}
+            height={405}
+            layerStyles={THEME_LAYERS[styleId] || THEME_LAYERS.watercolor}
+            textColor={THEME_TEXT[styleId] || THEME_TEXT.watercolor}
+            bgColor={THEME_BG[styleId] || THEME_BG.watercolor}
+            fontFamily={THEME_FONT[styleId] || THEME_FONT.watercolor}
+            padding={18}
+            showHoleNumbers={toggles.showHoleNumbers}
+            avoidZone={toggles.showScorecard ? { x: 240, y: 0, width: 130, height: 70 } : undefined}
+          />
+        </g>
+      )}
+
       {/* Scorecard */}
       {toggles.showScorecard && course.scorecard.length > 0 && (
         <ScorecardOverlay
@@ -56,23 +74,6 @@ const WatercolorStyle = ({ course, toggles = DEFAULT_POSTER_TOGGLES, osmData, cu
             fontFamily: "'Cormorant Garamond', serif",
           }}
         />
-      )}
-
-      {/* Map area — D3 GeoJSON rendering */}
-      {hasGeoJSON && (
-        <g transform="translate(15, 40)">
-          <GeoJSONMap
-            geojson={geojson!}
-            width={370}
-            height={405}
-            layerStyles={THEME_LAYERS[styleId] || THEME_LAYERS.watercolor}
-            textColor={THEME_TEXT[styleId] || THEME_TEXT.watercolor}
-            bgColor={THEME_BG[styleId] || THEME_BG.watercolor}
-            fontFamily={THEME_FONT[styleId] || THEME_FONT.watercolor}
-            padding={18}
-            showHoleNumbers={toggles.showHoleNumbers}
-          />
-        </g>
       )}
 
       {/* Title */}

@@ -4,6 +4,7 @@
  */
 import * as d3 from "d3";
 import { createProjection, rewindFeatureCollection } from "./projections";
+import type { PaddingBox, AvoidZone } from "./projections";
 
 export interface LayerStyle {
   fill: string;
@@ -15,8 +16,7 @@ export interface LayerStyle {
 export type LayerStyles = Record<string, LayerStyle>;
 
 const LAYER_ORDER = [
-  "boundary", "rough", "trees", "water",
-  "fairway", "bunker", "green", "tee", "hole",
+  "water", "fairway", "bunker", "green",
 ];
 
 export function renderGeoJSONToSvg(
@@ -28,13 +28,14 @@ export function renderGeoJSONToSvg(
   textColor: string,
   bgColor: string,
   fontFamily: string,
-  padding: number = 15,
+  padding: number | PaddingBox = 15,
   showHoleNumbers: boolean = true,
+  avoidZone?: AvoidZone,
 ) {
   g.selectAll("*").remove();
 
   const rewound = rewindFeatureCollection(geojson);
-  const projection = createProjection(rewound, width, height, padding);
+  const projection = createProjection(rewound, width, height, padding, avoidZone);
   const path = d3.geoPath().projection(projection);
 
   // Render layers in order
@@ -59,14 +60,14 @@ export function renderGeoJSONToSvg(
       .attr("opacity", style.opacity);
   }
 
-  // Render hole labels
+  // Render hole labels — prefer green centroids, fall back to hole centerlines
   if (!showHoleNumbers) return;
   let labelFeatures = rewound.features.filter(
-    (f: any) => f.properties?.type === "hole" && f.properties?.ref
+    (f: any) => f.properties?.type === "green" && f.properties?.ref
   );
   if (labelFeatures.length === 0) {
     labelFeatures = rewound.features.filter(
-      (f: any) => f.properties?.type === "green" && f.properties?.ref
+      (f: any) => f.properties?.type === "hole" && f.properties?.ref
     );
   }
   if (labelFeatures.length > 0) {
@@ -79,9 +80,9 @@ export function renderGeoJSONToSvg(
         .append("circle")
         .attr("cx", centroid[0])
         .attr("cy", centroid[1])
-        .attr("r", 7)
+        .attr("r", 5.5)
         .attr("fill", bgColor)
-        .attr("opacity", 0.85);
+        .attr("opacity", 0.9);
 
       labelGroup
         .append("text")
@@ -90,9 +91,9 @@ export function renderGeoJSONToSvg(
         .attr("text-anchor", "middle")
         .attr("dominant-baseline", "central")
         .attr("fill", textColor)
-        .attr("font-size", "8px")
+        .attr("font-size", "6px")
         .attr("font-family", fontFamily)
-        .attr("font-weight", "bold")
+        .attr("font-weight", "600")
         .text(feature.properties.ref);
     });
   }

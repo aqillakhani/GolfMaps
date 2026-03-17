@@ -7,12 +7,13 @@ from routers import search, course
 app = FastAPI(title="Golf Course Map API")
 
 # CORS: restrict in production, allow all in dev
-ALLOWED_ORIGINS = os.environ.get("ALLOWED_ORIGINS", "*").split(",")
+_raw_origins = os.environ.get("ALLOWED_ORIGINS", "")
+ALLOWED_ORIGINS = [o.strip() for o in _raw_origins.split(",") if o.strip()] if _raw_origins else []
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=ALLOWED_ORIGINS if ALLOWED_ORIGINS != ["*"] else ["*"],
-    allow_credentials=True,
+    allow_origins=ALLOWED_ORIGINS if ALLOWED_ORIGINS else ["*"],
+    allow_credentials=bool(ALLOWED_ORIGINS),  # credentials only with explicit origins
     allow_methods=["*"],
     allow_headers=["*"],
 )

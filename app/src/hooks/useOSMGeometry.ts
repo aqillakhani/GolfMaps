@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { OSMCourseData } from "@/services/osmService";
-import { fetchCourseGeoJSONByName, geoJSONToOSMCourseData } from "@/services/courseMapService";
+import { fetchCourseGeoJSONByName, fetchCourseGeoJSON, geoJSONToOSMCourseData } from "@/services/courseMapService";
 import { Course } from "@/data/mockData";
 
 export interface OSMGeometryState {
@@ -39,11 +39,21 @@ export const useOSMGeometry = (course: Course | null): OSMGeometryState => {
 
     const fetchData = async () => {
       try {
-        const geoData = await fetchCourseGeoJSONByName(course.name);
+        // If this course came from the API search, use the OSM ID directly
+        const osmMatch = course.id.match(/^osm-(node|way|relation)-(\d+)$/);
+        const geoData = osmMatch
+          ? await fetchCourseGeoJSON(osmMatch[1], parseInt(osmMatch[2], 10))
+          : await fetchCourseGeoJSONByName(course.name);
         if (cancelled) return;
 
         if (geoData && geoData.geojson.features.length > 0) {
           const osmData = geoJSONToOSMCourseData(geoData);
+          // Enrich course with metadata from the API if available
+          if (geoData.metadata) {
+            if (geoData.metadata.name && !course.name) course.name = geoData.metadata.name;
+            if (geoData.metadata.holes) course.holes = geoData.metadata.holes;
+            if (geoData.metadata.par) course.par = geoData.metadata.par;
+          }
           setState({
             osmData,
             geojson: geoData.geojson,

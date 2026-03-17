@@ -37,6 +37,24 @@ const DarkStyle = ({ course, toggles = DEFAULT_POSTER_TOGGLES, osmData, customTe
       <rect width="400" height="560" fill="url(#dark-bg)" />
       <rect x="12" y="12" width="376" height="536" rx="2" fill="none" stroke={goldDim} strokeWidth="0.5" opacity="0.4" />
 
+      {/* Map area — D3 GeoJSON rendering */}
+      {hasGeoJSON && (
+        <g transform="translate(15, 40)">
+          <GeoJSONMap
+            geojson={geojson!}
+            width={370}
+            height={405}
+            layerStyles={THEME_LAYERS[styleId] || THEME_LAYERS.dark}
+            textColor={THEME_TEXT[styleId] || THEME_TEXT.dark}
+            bgColor={THEME_BG[styleId] || THEME_BG.dark}
+            fontFamily={THEME_FONT[styleId] || THEME_FONT.dark}
+            padding={18}
+            showHoleNumbers={toggles.showHoleNumbers}
+            avoidZone={toggles.showScorecard ? { x: 240, y: 0, width: 130, height: 70 } : undefined}
+          />
+        </g>
+      )}
+
       {/* Scorecard */}
       {toggles.showScorecard && course.scorecard.length > 0 && (
         <ScorecardOverlay
@@ -60,23 +78,6 @@ const DarkStyle = ({ course, toggles = DEFAULT_POSTER_TOGGLES, osmData, customTe
             fontFamily: "'DM Sans', sans-serif",
           }}
         />
-      )}
-
-      {/* Map area — D3 GeoJSON rendering */}
-      {hasGeoJSON && (
-        <g transform="translate(15, 40)">
-          <GeoJSONMap
-            geojson={geojson!}
-            width={370}
-            height={405}
-            layerStyles={THEME_LAYERS[styleId] || THEME_LAYERS.dark}
-            textColor={THEME_TEXT[styleId] || THEME_TEXT.dark}
-            bgColor={THEME_BG[styleId] || THEME_BG.dark}
-            fontFamily={THEME_FONT[styleId] || THEME_FONT.dark}
-            padding={18}
-            showHoleNumbers={toggles.showHoleNumbers}
-          />
-        </g>
       )}
 
       <text x="200" y="492" textAnchor="middle" fontFamily="'Cormorant Garamond', Georgia, serif" fontSize="20" fontWeight="700" letterSpacing="4" fill={gold}>

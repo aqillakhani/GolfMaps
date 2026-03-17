@@ -25,6 +25,24 @@ const VintageStyle = ({ course, toggles = DEFAULT_POSTER_TOGGLES, osmData, custo
       <rect width="400" height="560" fill="hsl(35, 35%, 88%)" />
       <rect width="400" height="560" fill="hsl(30, 25%, 80%)" opacity="0.15" />
 
+      {/* Map area — D3 GeoJSON rendering */}
+      {hasGeoJSON && (
+        <g transform="translate(15, 40)">
+          <GeoJSONMap
+            geojson={geojson!}
+            width={370}
+            height={405}
+            layerStyles={THEME_LAYERS[styleId] || THEME_LAYERS.vintage}
+            textColor={THEME_TEXT[styleId] || THEME_TEXT.vintage}
+            bgColor={THEME_BG[styleId] || THEME_BG.vintage}
+            fontFamily={THEME_FONT[styleId] || THEME_FONT.vintage}
+            padding={18}
+            showHoleNumbers={toggles.showHoleNumbers}
+            avoidZone={toggles.showScorecard ? { x: 240, y: 0, width: 130, height: 70 } : undefined}
+          />
+        </g>
+      )}
+
       {/* Scorecard */}
       {toggles.showScorecard && course.scorecard.length > 0 && (
         <ScorecardOverlay
@@ -47,23 +65,6 @@ const VintageStyle = ({ course, toggles = DEFAULT_POSTER_TOGGLES, osmData, custo
             fontFamily: "'Cormorant Garamond', Georgia, serif",
           }}
         />
-      )}
-
-      {/* Map area — D3 GeoJSON rendering */}
-      {hasGeoJSON && (
-        <g transform="translate(15, 40)">
-          <GeoJSONMap
-            geojson={geojson!}
-            width={370}
-            height={405}
-            layerStyles={THEME_LAYERS[styleId] || THEME_LAYERS.vintage}
-            textColor={THEME_TEXT[styleId] || THEME_TEXT.vintage}
-            bgColor={THEME_BG[styleId] || THEME_BG.vintage}
-            fontFamily={THEME_FONT[styleId] || THEME_FONT.vintage}
-            padding={18}
-            showHoleNumbers={toggles.showHoleNumbers}
-          />
-        </g>
       )}
 
       {/* Decorative corners */}

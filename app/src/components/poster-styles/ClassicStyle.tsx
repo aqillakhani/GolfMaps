@@ -31,7 +31,25 @@ const ClassicStyle = ({ course, toggles = DEFAULT_POSTER_TOGGLES, osmData, custo
       {/* White background */}
       <rect width="400" height="560" fill="hsl(40, 30%, 98%)" />
 
-      {/* Scorecard */}
+      {/* Map area — D3 GeoJSON rendering (rendered first, scorecard overlays on top) */}
+      {hasGeoJSON && (
+        <g transform="translate(15, 40)">
+          <GeoJSONMap
+            geojson={geojson!}
+            width={370}
+            height={405}
+            layerStyles={THEME_LAYERS[styleId] || THEME_LAYERS.classic}
+            textColor={THEME_TEXT[styleId] || THEME_TEXT.classic}
+            bgColor={THEME_BG[styleId] || THEME_BG.classic}
+            fontFamily={THEME_FONT[styleId] || THEME_FONT.classic}
+            padding={18}
+            showHoleNumbers={toggles.showHoleNumbers}
+            avoidZone={toggles.showScorecard ? { x: 240, y: 0, width: 130, height: 70 } : undefined}
+          />
+        </g>
+      )}
+
+      {/* Scorecard — overlays on top of map with opaque background */}
       {toggles.showScorecard && course.scorecard.length > 0 && (
         <ScorecardOverlay
           front9={front9}
@@ -53,23 +71,6 @@ const ClassicStyle = ({ course, toggles = DEFAULT_POSTER_TOGGLES, osmData, custo
             fontFamily: "'DM Sans', sans-serif",
           }}
         />
-      )}
-
-      {/* Map area — D3 GeoJSON rendering */}
-      {hasGeoJSON && (
-        <g transform="translate(15, 40)">
-          <GeoJSONMap
-            geojson={geojson!}
-            width={370}
-            height={405}
-            layerStyles={THEME_LAYERS[styleId] || THEME_LAYERS.classic}
-            textColor={THEME_TEXT[styleId] || THEME_TEXT.classic}
-            bgColor={THEME_BG[styleId] || THEME_BG.classic}
-            fontFamily={THEME_FONT[styleId] || THEME_FONT.classic}
-            padding={18}
-            showHoleNumbers={toggles.showHoleNumbers}
-          />
-        </g>
       )}
 
       {/* Title block */}

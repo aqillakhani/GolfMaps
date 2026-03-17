@@ -1,9 +1,37 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, MapPin, Flag, ChevronRight, ShieldCheck, ShieldAlert } from "lucide-react";
+import { Search, MapPin, Flag, ChevronRight, ShieldCheck, ShieldAlert, Loader2 } from "lucide-react";
 import { Course } from "@/data/mockData";
 import { searchCourses, ValidatedCourse, getSourceLabel } from "@/services/courseValidation";
+import { searchCourses as apiSearchCourses, CourseSearchResult } from "@/services/courseMapService";
 import { Badge } from "@/components/ui/badge";
+
+/** Convert an API search result into a Course object with sensible defaults. */
+function apiResultToCourse(result: CourseSearchResult): ValidatedCourse {
+  const locationParts = result.location?.split(", ") || [];
+  const city = locationParts[0] || "";
+  const region = locationParts[1] || "";
+  const country = locationParts[locationParts.length - 1] || "";
+
+  return {
+    id: `osm-${result.osm_type}-${result.osm_id}`,
+    name: result.name,
+    location: result.location || "",
+    city,
+    region,
+    country,
+    holes: 18,
+    par: 72,
+    yardage: 0,
+    status: "open",
+    established: 0,
+    designer: "",
+    scorecard: Array.from({ length: 18 }, (_, i) => ({ hole: i + 1, yards: 0, par: 4 })),
+    validated: false,
+    matchConfidence: 0.5,
+    validationSource: null,
+  };
+}
 
 interface CourseSearchProps {
   onSelect: (course: Course) => void;
@@ -13,10 +41,47 @@ interface CourseSearchProps {
 const CourseSearch = ({ onSelect, initialQuery = "" }: CourseSearchProps) => {
   const [query, setQuery] = useState(initialQuery);
   const [focused, setFocused] = useState(false);
+  const [apiResults, setApiResults] = useState<ValidatedCourse[]>([]);
+  const [apiSearching, setApiSearching] = useState(false);
+  const debounceRef = useRef<ReturnType<typeof setTimeout>>();
 
-  const { courses: results, hasMultipleMatches } = useMemo(() => {
+  const { courses: localResults, hasMultipleMatches } = useMemo(() => {
     return searchCourses(query);
   }, [query]);
+
+  // Always search the API alongside local results to find courses not in the local DB
+  useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+
+    if (query.length < 3) {
+      setApiSearching(false);
+      setApiResults([]);
+      return;
+    }
+
+    setApiSearching(true);
+    debounceRef.current = setTimeout(async () => {
+      try {
+        const results = await apiSearchCourses(query, 5);
+        setApiResults(results.map(apiResultToCourse));
+      } catch {
+        setApiResults([]);
+      } finally {
+        setApiSearching(false);
+      }
+    }, 400);
+
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
+  }, [query]);
+
+  // Merge local + API results, with local first, deduplicating by name
+  const results = useMemo(() => {
+    const localNames = new Set(localResults.map((c) => c.name.toLowerCase()));
+    const uniqueApi = apiResults.filter((c) => !localNames.has(c.name.toLowerCase()));
+    return [...localResults, ...uniqueApi];
+  }, [localResults, apiResults]);
 
   const sourceBadgeColor = (source: ValidatedCourse["validationSource"]): string => {
     if (source === "BlueGolf") return "bg-primary/10 text-primary";
@@ -117,13 +182,20 @@ const CourseSearch = ({ onSelect, initialQuery = "" }: CourseSearchProps) => {
       </AnimatePresence>
 
       {query.length >= 2 && results.length === 0 && (
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, filter: "blur(4px)" }}
           animate={{ opacity: 1, filter: "blur(0px)" }}
           className="text-center text-sm text-muted-foreground mt-8"
         >
-          No courses found. Try a different search.
-        </motion.p>
+          {apiSearching ? (
+            <span className="flex items-center justify-center gap-2">
+              <Loader2 className="w-4 h-4 animate-spin" />
+              Searching golf courses...
+            </span>
+          ) : (
+            "No courses found. Try a different search."
+          )}
+        </motion.div>
       )}
     </div>
   );

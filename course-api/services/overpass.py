@@ -4,6 +4,41 @@ import httpx
 
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
 NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
+
+_GOLF_SUFFIXES = [
+    "golf & country club", "golf and country club",
+    "golf course", "golf club", "golf links",
+    "country club", "golf resort",
+]
+
+
+def _strip_golf_suffix(query: str) -> str:
+    """Remove trailing golf-related suffixes to prevent double-suffix in Nominatim queries."""
+    q = query.strip()
+    lower = q.lower()
+    for suffix in _GOLF_SUFFIXES:
+        if lower.endswith(suffix):
+            return q[:len(q) - len(suffix)].strip()
+    return q
+
+
+def _score_result(result_name: str, query: str) -> int:
+    """Score a search result by relevance to the user's query. Higher = better."""
+    rn = result_name.lower().strip()
+    q = query.lower().strip()
+    core = _strip_golf_suffix(query).lower().strip()
+    if q == rn or core == rn:
+        return 100
+    if core in rn:
+        return 80
+    if rn in q:
+        return 60
+    query_words = set(core.split())
+    result_words = set(rn.split())
+    overlap = len(query_words & result_words)
+    return overlap * 20
+
+
 _last_overpass_time = 0.0
 _last_nominatim_time = 0.0
 _overpass_lock = asyncio.Lock()
@@ -31,8 +66,8 @@ async def _rate_limited_query(query: str) -> dict:
             return {}
 
 
-async def search_courses(query: str, limit: int = 10) -> list[dict]:
-    """Search using Nominatim (fast text search) filtered to golf courses."""
+async def _nominatim_search(search_query: str, limit: int, headers: dict) -> list[dict]:
+    """Execute a single Nominatim search and return raw JSON results."""
     global _last_nominatim_time
     async with _nominatim_lock:
         now = time.time()
@@ -41,31 +76,32 @@ async def search_courses(query: str, limit: int = 10) -> list[dict]:
             await asyncio.sleep(wait)
 
         params = {
-            "q": f"{query} golf course",
+            "q": search_query,
             "format": "json",
             "limit": limit,
             "extratags": 1,
             "namedetails": 1,
             "addressdetails": 1,
         }
-        headers = {"User-Agent": "GolfMapPoster/1.0"}
 
         async with httpx.AsyncClient(timeout=15.0) as client:
             response = await client.get(NOMINATIM_URL, params=params, headers=headers)
             response.raise_for_status()
             _last_nominatim_time = time.time()
-            data = response.json()
+            return response.json()
 
+
+def _parse_golf_results(data: list[dict], original_query: str) -> list[dict]:
+    """Filter Nominatim results to golf courses and sort by relevance."""
     results = []
     for item in data:
-        # Filter to golf-related results
-        osm_type = item.get("osm_type", "")  # "relation", "way", "node"
+        osm_type = item.get("osm_type", "")
         extra = item.get("extratags", {})
         category = item.get("class", "")
         item_type = item.get("type", "")
 
         is_golf = (
-            category == "leisure" and item_type == "golf_course"
+            (category == "leisure" and item_type == "golf_course")
             or extra.get("leisure") == "golf_course"
             or "golf" in item.get("display_name", "").lower()
         )
@@ -90,6 +126,26 @@ async def search_courses(query: str, limit: int = 10) -> list[dict]:
             "lat": float(item["lat"]),
             "lon": float(item["lon"]),
         })
+
+    # Sort by relevance to the original query
+    results.sort(key=lambda r: _score_result(r["name"], original_query), reverse=True)
+    return results
+
+
+async def search_courses(query: str, limit: int = 10) -> list[dict]:
+    """Search using Nominatim (fast text search) filtered to golf courses."""
+    headers = {"User-Agent": "GolfMapPoster/1.0"}
+    core_name = _strip_golf_suffix(query)
+
+    # Strategy 1: search with "{core_name} golf course"
+    data = await _nominatim_search(f"{core_name} golf course", limit, headers)
+    results = _parse_golf_results(data, query)
+    if results:
+        return results
+
+    # Strategy 2: search with just the core name (handles unusual OSM naming)
+    data = await _nominatim_search(core_name, limit, headers)
+    results = _parse_golf_results(data, query)
     return results
 
 
@@ -107,8 +163,6 @@ out body geom;
 (
   nwr["golf"](area.course_area);
   nwr["natural"="water"](area.course_area);
-  nwr["natural"="wood"](area.course_area);
-  nwr["landuse"="forest"](area.course_area);
 );
 out body geom;
 '''
@@ -152,8 +206,6 @@ out body geom;
 (
   nwr["golf"]({bbox});
   nwr["natural"="water"]({bbox});
-  nwr["natural"="wood"]({bbox});
-  nwr["landuse"="forest"]({bbox});
 );
 out body geom;
 '''

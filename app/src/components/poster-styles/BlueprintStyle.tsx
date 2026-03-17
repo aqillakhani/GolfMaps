@@ -31,6 +31,24 @@ const BlueprintStyle = ({ course, toggles = DEFAULT_POSTER_TOGGLES, osmData, cus
         <line key={`v${i}`} x1={i * 20} y1="0" x2={i * 20} y2="560" stroke="hsl(215, 40%, 25%)" strokeWidth="0.3" />
       ))}
 
+      {/* Map area — D3 GeoJSON rendering */}
+      {hasGeoJSON && (
+        <g transform="translate(15, 40)">
+          <GeoJSONMap
+            geojson={geojson!}
+            width={370}
+            height={405}
+            layerStyles={THEME_LAYERS[styleId] || THEME_LAYERS.blueprint}
+            textColor={THEME_TEXT[styleId] || THEME_TEXT.blueprint}
+            bgColor={THEME_BG[styleId] || THEME_BG.blueprint}
+            fontFamily={THEME_FONT[styleId] || THEME_FONT.blueprint}
+            padding={18}
+            showHoleNumbers={toggles.showHoleNumbers}
+            avoidZone={toggles.showScorecard ? { x: 240, y: 0, width: 130, height: 70 } : undefined}
+          />
+        </g>
+      )}
+
       {/* Scorecard */}
       {toggles.showScorecard && course.scorecard.length > 0 && (
         <ScorecardOverlay
@@ -55,23 +73,6 @@ const BlueprintStyle = ({ course, toggles = DEFAULT_POSTER_TOGGLES, osmData, cus
             fontFamily: "'DM Sans', monospace",
           }}
         />
-      )}
-
-      {/* Map area — D3 GeoJSON rendering */}
-      {hasGeoJSON && (
-        <g transform="translate(15, 40)">
-          <GeoJSONMap
-            geojson={geojson!}
-            width={370}
-            height={405}
-            layerStyles={THEME_LAYERS[styleId] || THEME_LAYERS.blueprint}
-            textColor={THEME_TEXT[styleId] || THEME_TEXT.blueprint}
-            bgColor={THEME_BG[styleId] || THEME_BG.blueprint}
-            fontFamily={THEME_FONT[styleId] || THEME_FONT.blueprint}
-            padding={18}
-            showHoleNumbers={toggles.showHoleNumbers}
-          />
-        </g>
       )}
 
       {/* Title */}

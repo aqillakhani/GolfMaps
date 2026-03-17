@@ -1,4 +1,7 @@
+import statistics
+
 from shapely.geometry import shape, mapping, Polygon, MultiPolygon, LineString, Point
+from shapely.ops import unary_union
 from shapely.validation import make_valid
 
 TAG_CLASSIFICATION = [
@@ -9,9 +12,14 @@ TAG_CLASSIFICATION = [
     (lambda t: t.get("golf") == "water_hazard" or t.get("natural") == "water", "water"),
     (lambda t: t.get("golf") == "rough", "rough"),
     (lambda t: t.get("golf") == "hole", "hole"),
-    (lambda t: t.get("natural") == "wood" or t.get("landuse") == "forest", "trees"),
+    # boundary kept for metadata extraction only — geometry excluded from output
     (lambda t: t.get("leisure") == "golf_course", "boundary"),
 ]
+
+# Feature types to include in rendered GeoJSON output
+RENDERABLE_TYPES = {"fairway", "green", "bunker", "tee", "water", "rough", "hole"}
+# Note: "hole" features are included for labeling (hole numbers) even though
+# they aren't rendered as visible paths in the frontend LAYER_ORDER.
 
 
 def _element_to_geometry(element: dict) -> dict | None:
@@ -145,10 +153,189 @@ def process_osm_data(raw_data: dict) -> dict:
             "properties": properties,
         })
 
+    # Exclude boundary geometry from output — it inflates the projection
+    # for resort complexes (e.g. Pinehurst with 9 courses)
+    rendered_features = [f for f in features if f["properties"]["type"] in RENDERABLE_TYPES]
+
+    # Remove geographic outliers (practice facilities, adjacent courses, etc.)
+    rendered_features = _remove_outliers(rendered_features)
+
     return {
         "metadata": metadata,
         "geojson": {
             "type": "FeatureCollection",
-            "features": features,
+            "features": rendered_features,
         },
     }
+
+
+def _shapely_geom(geojson_geom: dict):
+    """Convert GeoJSON geometry dict to a Shapely geometry, or None."""
+    try:
+        geom = shape(geojson_geom)
+        return geom if not geom.is_empty else None
+    except Exception:
+        return None
+
+
+def _remove_outliers(features: list[dict]) -> list[dict]:
+    """Remove features outside the main 18-hole course footprint.
+
+    Strategy:
+    1. If hole features with ref numbers exist, identify the 18 main-course holes
+       (refs 1-18), build a convex hull around them, and keep only features that
+       intersect with a buffered version of that hull.
+    2. Otherwise, fall back to IQR-based outlier detection on fairway+green centroids.
+
+    This eliminates practice facilities, par-3 courses, driving ranges, and
+    adjacent course features that share the same OSM boundary.
+    """
+    if len(features) < 5:
+        return features
+
+    result = _filter_by_hole_routing(features)
+    if result is not None:
+        return result
+
+    return _filter_by_iqr(features)
+
+
+def _filter_by_hole_routing(features: list[dict]) -> list[dict] | None:
+    """Use hole features (ref 1-18) to define the main course footprint.
+
+    When duplicate refs exist (e.g., main course + par-3 course both have holes 1-9),
+    uses the back 9 (refs 10-18) as anchors to disambiguate which set of front-9
+    holes belong to the main course.
+    """
+    hole_features = [
+        f for f in features
+        if f["properties"]["type"] == "hole" and f["properties"].get("ref", "").isdigit()
+    ]
+    if len(hole_features) < 9:
+        return None
+
+    # Group holes by ref number
+    by_ref: dict[str, list] = {}
+    for f in hole_features:
+        ref = f["properties"]["ref"]
+        by_ref.setdefault(ref, []).append(f)
+
+    # Back 9 holes (10-18) are unique to the main course — use as anchors
+    back9_geoms = []
+    for ref_num in range(10, 19):
+        ref = str(ref_num)
+        if ref in by_ref:
+            for f in by_ref[ref]:
+                geom = _shapely_geom(f["geometry"])
+                if geom:
+                    back9_geoms.append(geom)
+
+    # Compute back-9 center for disambiguation
+    if back9_geoms:
+        back9_union = unary_union(back9_geoms)
+        anchor_center = back9_union.centroid
+    else:
+        anchor_center = None
+
+    # Select one hole per ref for front 9, preferring the one closest to back-9 center
+    main_geoms = list(back9_geoms)
+    for ref_num in range(1, 10):
+        ref = str(ref_num)
+        candidates = by_ref.get(ref, [])
+        if not candidates:
+            continue
+        if len(candidates) == 1 or anchor_center is None:
+            geom = _shapely_geom(candidates[0]["geometry"])
+            if geom:
+                main_geoms.append(geom)
+        else:
+            # Pick the candidate closest to the back-9 center
+            best_geom = None
+            best_dist = float("inf")
+            for f in candidates:
+                geom = _shapely_geom(f["geometry"])
+                if geom:
+                    dist = geom.centroid.distance(anchor_center)
+                    if dist < best_dist:
+                        best_dist = dist
+                        best_geom = geom
+            if best_geom:
+                main_geoms.append(best_geom)
+
+    if len(main_geoms) < 9:
+        return None
+
+    # Buffer each hole line individually to create corridor zones.
+    # Use ~30% of the average hole length as buffer width — wide enough to
+    # capture fairways, greens, bunkers, and water hazards flanking each hole,
+    # but tight enough to exclude features from adjacent par-3 courses or
+    # practice facilities that sit between main-course holes.
+    lengths = [g.length for g in main_geoms if g.length > 0]
+    avg_length = sum(lengths) / len(lengths) if lengths else 0.003
+    buffer_dist = avg_length * 0.30
+
+    # Union of all buffered hole corridors
+    corridors = unary_union([g.buffer(buffer_dist) for g in main_geoms])
+
+    # Keep features that intersect the corridor zones
+    result = []
+    for f in features:
+        geom = _shapely_geom(f["geometry"])
+        if geom is None:
+            result.append(f)
+            continue
+        if corridors.intersects(geom):
+            result.append(f)
+
+    # Safety: don't remove too many features
+    if len(result) < len(features) * 0.4:
+        return None
+
+    return result
+
+
+def _filter_by_iqr(features: list[dict]) -> list[dict]:
+    """Fallback: IQR-based outlier removal using fairway+green centroids."""
+    CORE_TYPES = {"fairway", "green"}
+    core_centroids: list[tuple[float, float]] = []
+    for f in features:
+        if f["properties"]["type"] in CORE_TYPES:
+            geom = _shapely_geom(f["geometry"])
+            if geom:
+                c = geom.centroid
+                core_centroids.append((c.x, c.y))
+
+    if len(core_centroids) < 3:
+        return features
+
+    med_lon = statistics.median(c[0] for c in core_centroids)
+    med_lat = statistics.median(c[1] for c in core_centroids)
+
+    core_dists = sorted(
+        ((lon - med_lon) ** 2 + (lat - med_lat) ** 2) ** 0.5
+        for lon, lat in core_centroids
+    )
+    n = len(core_dists)
+    q1 = core_dists[n // 4]
+    q3 = core_dists[(3 * n) // 4]
+    iqr = q3 - q1
+    threshold = q3 + 2.0 * iqr
+
+    if threshold < 1e-6:
+        return features
+
+    result = []
+    for f in features:
+        geom = _shapely_geom(f["geometry"])
+        if geom is None:
+            result.append(f)
+            continue
+        c = geom.centroid
+        dist = ((c.x - med_lon) ** 2 + (c.y - med_lat) ** 2) ** 0.5
+        if dist <= threshold:
+            result.append(f)
+
+    if len(result) < len(features) * 0.6:
+        return features
+
+    return result
