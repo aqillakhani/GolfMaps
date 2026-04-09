@@ -65,6 +65,7 @@ const DarkStyle = ({ course, toggles = DEFAULT_POSTER_TOGGLES, osmData, customTe
           established={course.established}
           designer={course.designer}
           userScores={userScores}
+          showScore={toggles.showScore}
           theme={{
             bgFill: darkGreen,
             borderStroke: goldDim,

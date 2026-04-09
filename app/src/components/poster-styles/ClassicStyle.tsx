@@ -59,6 +59,7 @@ const ClassicStyle = ({ course, toggles = DEFAULT_POSTER_TOGGLES, osmData, custo
           established={course.established}
           designer={course.designer}
           userScores={userScores}
+          showScore={toggles.showScore}
           theme={{
             bgFill: "hsl(40, 25%, 96%)",
             borderStroke: "hsl(100, 15%, 85%)",

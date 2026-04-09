@@ -23,6 +23,7 @@ interface ScorecardOverlayProps {
   designer: string;
   theme: ScorecardTheme;
   userScores?: HoleScore[] | null;
+  showScore?: boolean;
 }
 
 const getScoreColor = (strokes: number, par: number): string => {
@@ -34,8 +35,8 @@ const getScoreColor = (strokes: number, par: number): string => {
   return "hsl(0, 65%, 48%)";                       // double+ — red
 };
 
-const ScorecardOverlay = ({ front9, back9, par, yardage, established, designer, theme, userScores }: ScorecardOverlayProps) => {
-  const hasScores = userScores && userScores.length > 0;
+const ScorecardOverlay = ({ front9, back9, par, yardage, established, designer, theme, userScores, showScore = false }: ScorecardOverlayProps) => {
+  const hasScores = showScore && !!userScores && userScores.length > 0;
   const getScore = (hole: number) => userScores?.find((s) => s.hole === hole)?.strokes ?? 0;
 
   // Layout shifts when user scores are present

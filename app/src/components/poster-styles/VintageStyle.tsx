@@ -53,6 +53,7 @@ const VintageStyle = ({ course, toggles = DEFAULT_POSTER_TOGGLES, osmData, custo
           established={course.established}
           designer={course.designer}
           userScores={userScores}
+          showScore={toggles.showScore}
           theme={{
             bgFill: "hsl(35, 30%, 84%)",
             borderStroke: "hsl(30, 20%, 65%)",

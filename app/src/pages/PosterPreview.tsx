@@ -11,13 +11,14 @@ import SourceDebugPanel from "@/components/SourceDebugPanel";
 import InlineCourseCard from "@/components/InlineCourseCard";
 import BucketListButtons from "@/components/BucketListButtons";
 import { COLLECTIONS, CollectionId } from "@/data/mockData";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { getActiveAudit, createAuditRecord } from "@/services/courseAudit";
 import { purgeLayoutCache } from "@/components/poster-styles/layoutUtils";
 import { validateCourse } from "@/services/courseValidation";
 import { getReferenceGeometry } from "@/components/poster-styles/referenceGeometry";
 import { HoleScore } from "@/data/rounds";
 import ScorecardGrid from "@/components/scorecard/ScorecardGrid";
+import ScorecardUploader from "@/components/scorecard/ScorecardUploader";
 
 const PosterPreview = () => {
   const navigate = useNavigate();
@@ -31,6 +32,11 @@ const PosterPreview = () => {
   const [shareToast, setShareToast] = useState(false);
   const [posterScores, setPosterScores] = useState<HoleScore[]>([]);
   const [showScoreEntry, setShowScoreEntry] = useState(false);
+
+  // Auto-expand the score entry panel when the user turns on "Add your score".
+  useEffect(() => {
+    if (posterToggles.showScore) setShowScoreEntry(true);
+  }, [posterToggles.showScore]);
 
   // Inline validation (replaces the old VerifyCourse page)
   const validated = useMemo(() => {
@@ -255,8 +261,8 @@ const PosterPreview = () => {
           <PosterToggles toggles={posterToggles} onChange={setPosterToggles} />
         </motion.div>
 
-        {/* Add Your Scores */}
-        {selectedCourse.scorecard.length > 0 && posterToggles.showScorecard && (
+        {/* Add Your Scores — shown when the "Add your score" toggle is on */}
+        {selectedCourse.scorecard.length > 0 && posterToggles.showScorecard && posterToggles.showScore && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -293,13 +299,19 @@ const PosterPreview = () => {
                     className="overflow-hidden"
                   >
                     <p className="text-xs text-muted-foreground mt-3 mb-2">
-                      Tap each hole to enter your score. It will appear on the poster scorecard.
+                      Tap each hole to enter your score, or upload a photo of your scorecard.
                     </p>
-                    <ScorecardGrid
-                      courseScorecard={selectedCourse.scorecard}
-                      holeScores={posterScores}
-                      onUpdateScores={setPosterScores}
+                    <ScorecardUploader
+                      onScoresExtracted={setPosterScores}
+                      totalHoles={selectedCourse.scorecard.length}
                     />
+                    <div className="mt-3">
+                      <ScorecardGrid
+                        courseScorecard={selectedCourse.scorecard}
+                        holeScores={posterScores}
+                        onUpdateScores={setPosterScores}
+                      />
+                    </div>
                     {posterScores.length > 0 && (
                       <button
                         onClick={() => setPosterScores([])}

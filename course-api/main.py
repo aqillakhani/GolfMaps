@@ -1,21 +1,45 @@
+import logging
 import os
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from routers import search, course
+from routers import search, course, scorecard
 
-app = FastAPI(title="Golf Course Map API")
+logging.basicConfig(
+    level=os.environ.get("LOG_LEVEL", "INFO"),
+    format="%(asctime)s %(levelname)s %(name)s — %(message)s",
+)
+logger = logging.getLogger(__name__)
 
-# CORS: restrict in production, allow all in dev
+ENVIRONMENT = os.environ.get("ENVIRONMENT", "development").lower()
+IS_PRODUCTION = ENVIRONMENT == "production"
+
+app = FastAPI(
+    title="GolfMaps Course API",
+    version="1.0.0",
+    docs_url=None if IS_PRODUCTION else "/docs",
+    redoc_url=None if IS_PRODUCTION else "/redoc",
+)
+
+# CORS: in production we require an explicit allowlist. Dev falls back to *.
 _raw_origins = os.environ.get("ALLOWED_ORIGINS", "")
 ALLOWED_ORIGINS = [o.strip() for o in _raw_origins.split(",") if o.strip()] if _raw_origins else []
+
+if IS_PRODUCTION and not ALLOWED_ORIGINS:
+    raise RuntimeError(
+        "ALLOWED_ORIGINS must be set in production (comma-separated list of app origins)."
+    )
+if IS_PRODUCTION and not os.environ.get("SCORECARD_AUTH_SECRET"):
+    logger.warning(
+        "SCORECARD_AUTH_SECRET is not set in production — scorecard endpoint is unauthenticated!"
+    )
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS if ALLOWED_ORIGINS else ["*"],
-    allow_credentials=bool(ALLOWED_ORIGINS),  # credentials only with explicit origins
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_credentials=bool(ALLOWED_ORIGINS),
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type", "X-Scorecard-Auth", "Authorization"],
 )
 
 # Rate limiting via slowapi (if installed)
@@ -32,6 +56,7 @@ except ImportError:
 
 app.include_router(search.router, prefix="/api")
 app.include_router(course.router, prefix="/api")
+app.include_router(scorecard.router, prefix="/api")
 
 
 @app.get("/health")

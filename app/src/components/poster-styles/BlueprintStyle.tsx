@@ -59,6 +59,7 @@ const BlueprintStyle = ({ course, toggles = DEFAULT_POSTER_TOGGLES, osmData, cus
           established={course.established}
           designer={course.designer}
           userScores={userScores}
+          showScore={toggles.showScore}
           theme={{
             bgFill: "hsl(215, 55%, 15%)",
             borderStroke: "hsl(0, 0%, 95%)",

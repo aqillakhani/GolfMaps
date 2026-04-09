@@ -61,6 +61,7 @@ const WatercolorStyle = ({ course, toggles = DEFAULT_POSTER_TOGGLES, osmData, cu
           established={course.established}
           designer={course.designer}
           userScores={userScores}
+          showScore={toggles.showScore}
           theme={{
             bgFill: "hsl(45, 40%, 94%)",
             borderStroke: "hsl(150, 20%, 70%)",

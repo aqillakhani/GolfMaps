@@ -24,6 +24,7 @@ export interface PosterToggles {
   showLocation: boolean;
   showYardagePar: boolean;
   showScorecard: boolean;
+  showScore: boolean;
   showCourseFacts: boolean;
   showHoleNumbers: boolean;
 }
@@ -32,6 +33,7 @@ export const DEFAULT_POSTER_TOGGLES: PosterToggles = {
   showLocation: true,
   showYardagePar: true,
   showScorecard: true,
+  showScore: false,
   showCourseFacts: true,
   showHoleNumbers: true,
 };
