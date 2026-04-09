@@ -21,6 +21,10 @@ RUN pip install --no-cache-dir --upgrade pip \
 # Copy the rest of the service source.
 COPY --chown=app:app . .
 
+# Ensure the cache directory is writable by the non-root user. The COPY
+# above can clobber ownership of existing data/ in the source tree.
+RUN mkdir -p /app/data/cache && chown -R app:app /app/data
+
 # Runtime environment
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \

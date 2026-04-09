@@ -25,12 +25,16 @@
 - [ ] iOS placeholder Info.plist notes (will be generated on Mac)
 - [ ] Icon + splash: @capacitor/assets config scaffolded (waits for 1024x1024 source image)
 
-## Phase 2 — Deploy course-api to Fly.io
-- [ ] `fly launch --no-deploy` → generate app
-- [ ] `fly secrets set ANTHROPIC_API_KEY=... SCORECARD_AUTH_SECRET=... ALLOWED_ORIGINS=...`
-- [ ] `fly deploy`
-- [ ] Verify /health from public URL
-- [ ] Update VITE_COURSE_API_URL to the Fly URL in .env.production
+## Phase 2 — Deploy course-api to Fly.io ✅ DONE 2026-04-08
+- [x] `fly apps create golfmaps-api --org personal`
+- [x] `fly secrets set ANTHROPIC_API_KEY=... SCORECARD_AUTH_SECRET=... ALLOWED_ORIGINS=...`
+- [x] `fly deploy` — 2 machines in iad region, both passing health checks
+- [x] Verify /health from public URL (200)
+- [x] Verify /api/scorecard/parse — 401 without header, 18 scores with header
+- [x] Update VITE_COURSE_API_URL to https://golfmaps-api.fly.dev/api in .env.production
+- [x] Write VITE_SCORECARD_AUTH_SECRET matching the Fly secret
+
+Public URL: https://golfmaps-api.fly.dev
 
 ## Phase 3 — Mobile builds
 ### Android (from Windows, solo)
