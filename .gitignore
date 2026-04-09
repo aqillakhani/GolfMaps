@@ -45,5 +45,11 @@ Thumbs.db
 # Claude Code
 .claude/
 
-# Debug artifacts
-*.png
+# Debug / scratch artifacts (root-level only — keep assets/*.png and app/**/*.png)
+/example/
+/package.json
+/package-lock.json
+/*.png
+
+# Fly.io local state
+.fly/
