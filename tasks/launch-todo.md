@@ -37,18 +37,34 @@
 Public URL: https://golfmaps-api.fly.dev
 
 ## Phase 3 — Mobile builds
-### Android (from Windows, solo)
-- [ ] `npm run build:cap`
-- [ ] `npm run open:android`
-- [ ] Configure signing config (keystore)
-- [ ] Build signed AAB
-- [ ] Test on physical device
 
-### iOS (requires Mac)
-- [ ] On Mac: `npx cap add ios`
-- [ ] Open in Xcode, configure signing team
-- [ ] Archive + upload to App Store Connect
-- [ ] TestFlight internal test
+### Phase 3A — Android (from Windows)
+- [x] Brand icon source committed at `app/assets/icon.png` (1024×1024)
+- [x] `@capacitor/assets` generates full Android iconset + splashes
+- [x] Debug APK built and installed on physical device (verified end-to-end
+      against Fly backend)
+- [x] `app/android/app/build.gradle` wired for release signing via
+      `android/keystore.properties` (gitignored), with R8 minification
+      + resource shrinking enabled
+- [x] ProGuard rules hardened to keep Capacitor reflection classes
+- [x] Keystore files globally gitignored (`*.jks`, `*.keystore`,
+      `keystore.properties`)
+- [x] `keystore.properties.example` template added
+- [x] versionName bumped to "1.0.0", versionCode = 1 for first release
+- [ ] **BLOCKED ON USER**: keystore password decision. Then I generate
+      `android/app/release.keystore`, populate `keystore.properties`, and
+      run `./gradlew bundleRelease` to produce the signed AAB.
+
+### Phase 3B — iOS (requires Mac)
+- [x] Full step-by-step Xcode checklist in `tasks/ios-launch-steps.md`
+- [x] Info.plist patch template in `tasks/ios-info-plist-patch.xml` with
+      NSCameraUsageDescription, NSPhotoLibraryUsageDescription,
+      NSAppTransportSecurity exceptions, CAPLaunchScreen reference
+- [x] Icon source already committed — same `@capacitor/assets` run on the
+      Mac will produce the iOS assets
+- [ ] **BLOCKED ON USER**: Mac access (borrowed Mac or MacInCloud ~$30/mo)
+- [ ] On Mac: `npx cap add ios` → `npm run build:cap` → patch Info.plist
+      → Xcode signing + archive → upload to App Store Connect → TestFlight
 
 ## Phase 4 — Accounts + services
 - [ ] Supabase project: URL, anon key, run schema SQL

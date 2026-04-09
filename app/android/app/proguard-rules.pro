@@ -1,21 +1,36 @@
 # Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+# https://developer.android.com/guide/developing/tools/proguard
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+# Preserve line numbers so crash stack traces from the Play Console are
+# useful even after R8 minification.
+-keepattributes SourceFile,LineNumberTable
+-renamesourcefileattribute SourceFile
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+# ---------- Capacitor runtime ------------------------------------------------
+# Capacitor reflects into plugin classes at runtime via @CapacitorPlugin and
+# @PluginMethod annotations. R8 will strip them unless we explicitly keep them.
+-keep class com.getcapacitor.** { *; }
+-keep class com.getcapacitor.annotation.** { *; }
+-keep @com.getcapacitor.annotation.CapacitorPlugin class * { *; }
+-keepclassmembers class ** {
+    @com.getcapacitor.PluginMethod public *;
+}
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# Official Capacitor plugins bundled with this app (camera, splash, etc.).
+-keep class com.capacitorjs.plugins.** { *; }
+
+# WebView's JavaScript bridge classes must stay intact so the web code can
+# continue to talk to native plugins after minification.
+-keepclassmembers class * extends com.getcapacitor.Plugin { *; }
+-keepclassmembers class * {
+    @android.webkit.JavascriptInterface <methods>;
+}
+
+# Cordova compatibility plugins loaded through the Capacitor bridge.
+-keep class org.apache.cordova.** { *; }
+
+# ---------- Misc -------------------------------------------------------------
+# Silence warnings from optional TLS providers we don't ship.
+-dontwarn org.conscrypt.**
+-dontwarn org.bouncycastle.**
+-dontwarn org.openjsse.**

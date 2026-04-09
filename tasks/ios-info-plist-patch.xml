@@ -1,0 +1,52 @@
+<!--
+  Info.plist patch for GolfMaps iOS launch.
+
+  Capacitor generates a default Info.plist when you run `npx cap add ios`,
+  but it doesn't include usage description strings for the features this
+  app uses. App Review will REJECT the submission without these.
+
+  After `npx cap add ios`, open ios/App/App/Info.plist in Xcode (or any
+  text editor) and merge these <key>/<string> pairs into the top-level
+  <dict>. The order within the dict doesn't matter — alphabetise if you
+  like clean diffs.
+
+  Tip: Xcode can paste this XML fragment directly into the plist if you
+  right-click the dict root → "Add Row" → switch to Source Code view.
+-->
+<dict>
+    <key>NSCameraUsageDescription</key>
+    <string>GolfMaps needs camera access so you can snap a photo of your scorecard and have the app read your hole-by-hole scores automatically.</string>
+
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>GolfMaps needs photo library access so you can pick an existing scorecard photo to import your scores.</string>
+
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>GolfMaps needs to save your generated course posters to your photo library so you can share them or keep them offline.</string>
+
+    <!-- Allow cleartext only for localhost dev builds. Production traffic to
+         https://golfmaps-api.fly.dev is TLS and works without exceptions. -->
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoadsInWebContent</key>
+        <false/>
+        <key>NSExceptionDomains</key>
+        <dict>
+            <key>localhost</key>
+            <dict>
+                <key>NSExceptionAllowsInsecureHTTPLoads</key>
+                <true/>
+            </dict>
+        </dict>
+    </dict>
+
+    <!-- Launch screen — the Capacitor splash screen plugin renders the
+         branded splash, but iOS still wants a storyboard name listed. The
+         default CAPStoryboard that `npx cap add ios` installs works fine. -->
+    <key>UILaunchStoryboardName</key>
+    <string>CAPLaunchScreen</string>
+
+    <!-- Brand display name on the home screen. Must match the Xcode
+         Display Name field in the General tab. -->
+    <key>CFBundleDisplayName</key>
+    <string>GolfMaps</string>
+</dict>
