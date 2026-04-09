@@ -39,14 +39,23 @@ export function rewindFeatureCollection(
   return {
     ...fc,
     features: fc.features
-      .filter((f) => f.geometry && (f.geometry as any).coordinates)
-      .map((f) => ({
-        ...f,
-        geometry: rewindGeometry({
-          ...f.geometry,
-          coordinates: JSON.parse(JSON.stringify((f.geometry as any).coordinates)),
-        }),
-      })),
+      .filter((f) => {
+        if (!f.geometry) return false;
+        // Accept Polygon, MultiPolygon, LineString, Point (have coordinates)
+        // Also accept GeometryCollection (has geometries array)
+        return (f.geometry as any).coordinates || (f.geometry as any).geometries;
+      })
+      .map((f) => {
+        // GeometryCollections and types without coordinates pass through unmodified
+        if (!(f.geometry as any).coordinates) return f;
+        return {
+          ...f,
+          geometry: rewindGeometry({
+            ...f.geometry,
+            coordinates: JSON.parse(JSON.stringify((f.geometry as any).coordinates)),
+          }),
+        };
+      }),
   };
 }
 
@@ -73,7 +82,7 @@ export function createProjection(
   avoidZone?: AvoidZone,
 ): d3.GeoProjection {
   // Use only core golf features for projection bounds
-  const GOLF_TYPES = new Set(["fairway", "green", "bunker", "tee", "rough"]);
+  const GOLF_TYPES = new Set(["fairway", "green", "bunker", "tee", "rough", "outline"]);
   const golfFeatures = geojson.features.filter(
     (f) => f.properties?.type && GOLF_TYPES.has(f.properties.type as string)
   );

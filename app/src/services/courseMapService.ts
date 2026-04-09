@@ -136,7 +136,7 @@ export async function fetchCourseGeoJSONByName(
 
 import type { OSMCourseData, OSMFeature } from "./osmService";
 
-const VALID_FEATURE_TYPES = new Set(["fairway", "green", "bunker", "water", "tee"]);
+const VALID_FEATURE_TYPES = new Set(["fairway", "green", "bunker", "water", "tee", "rough", "outline"]);
 
 function extractCoords(geometry: any): [number, number][] {
   if (geometry.type === "Polygon") {
@@ -178,7 +178,7 @@ export function geoJSONToOSMCourseData(
     if (!featureType || !VALID_FEATURE_TYPES.has(featureType)) continue;
 
     const coords = extractCoords(feature.geometry);
-    if (coords.length < 2) continue;
+    if (coords.length < 1) continue;
 
     // Update bounds
     for (const [lng, lat] of coords) {
@@ -200,7 +200,7 @@ export function geoJSONToOSMCourseData(
     });
   }
 
-  if (features.length < 3) return null;
+  if (features.length < 1) return null;
 
   return {
     courseName: courseGeoJSON.metadata.name || "",

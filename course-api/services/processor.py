@@ -9,17 +9,18 @@ TAG_CLASSIFICATION = [
     (lambda t: t.get("golf") == "green" or t.get("golf") == "putting_green", "green"),
     (lambda t: t.get("golf") == "bunker" or t.get("natural") == "sand", "bunker"),
     (lambda t: t.get("golf") == "tee", "tee"),
-    (lambda t: t.get("golf") == "water_hazard" or t.get("natural") == "water", "water"),
+    (lambda t: t.get("golf") in ("water_hazard", "lateral_water_hazard") or t.get("natural") == "water", "water"),
     (lambda t: t.get("golf") == "rough", "rough"),
     (lambda t: t.get("golf") == "hole", "hole"),
-    # boundary kept for metadata extraction only — geometry excluded from output
+    # boundary kept for metadata extraction and outline fallback
     (lambda t: t.get("leisure") == "golf_course", "boundary"),
 ]
 
 # Feature types to include in rendered GeoJSON output
-RENDERABLE_TYPES = {"fairway", "green", "bunker", "tee", "water", "rough", "hole"}
+RENDERABLE_TYPES = {"fairway", "green", "bunker", "tee", "water", "rough", "hole", "outline"}
 # Note: "hole" features are included for labeling (hole numbers) even though
 # they aren't rendered as visible paths in the frontend LAYER_ORDER.
+# "outline" is used as a fallback when no golf sub-features exist.
 
 
 def _element_to_geometry(element: dict) -> dict | None:
@@ -82,7 +83,12 @@ def _classify(tags: dict) -> str | None:
 
 
 def _validate_geometry(geojson_geom: dict) -> dict | None:
-    """Validate and fix geometry using Shapely."""
+    """Validate and fix geometry using Shapely.
+
+    If Shapely returns a GeometryCollection (e.g., from make_valid on a
+    self-intersecting polygon), extract the largest Polygon/MultiPolygon
+    from it so D3 can render it as a path.
+    """
     try:
         geom = shape(geojson_geom)
         if geom.is_empty:
@@ -91,9 +97,28 @@ def _validate_geometry(geojson_geom: dict) -> dict | None:
             geom = make_valid(geom)
         if geom.is_empty:
             return None
-        return mapping(geom)
+        # Decompose GeometryCollection → largest polygon
+        result = mapping(geom)
+        if result.get("type") == "GeometryCollection":
+            best = _extract_largest_polygon(geom)
+            if best is None:
+                return None
+            result = mapping(best)
+        return result
     except Exception:
         return None
+
+
+def _extract_largest_polygon(geom) -> Polygon | MultiPolygon | None:
+    """Extract the largest Polygon/MultiPolygon from a GeometryCollection."""
+    from shapely.geometry import GeometryCollection as GC
+    best = None
+    best_area = 0.0
+    for g in getattr(geom, "geoms", []):
+        if isinstance(g, (Polygon, MultiPolygon)) and g.area > best_area:
+            best = g
+            best_area = g.area
+    return best
 
 
 def process_osm_data(raw_data: dict) -> dict:
@@ -157,8 +182,38 @@ def process_osm_data(raw_data: dict) -> dict:
     # for resort complexes (e.g. Pinehurst with 9 courses)
     rendered_features = [f for f in features if f["properties"]["type"] in RENDERABLE_TYPES]
 
-    # Remove geographic outliers (practice facilities, adjacent courses, etc.)
-    rendered_features = _remove_outliers(rendered_features)
+    # Fallback: if no golf sub-features exist, promote boundary to outline
+    # so the course shape is still visible on the poster.
+    if not rendered_features:
+        boundary_features = [f for f in features if f["properties"]["type"] == "boundary"]
+        for bf in boundary_features:
+            outline = {
+                "type": "Feature",
+                "geometry": bf["geometry"],
+                "properties": {**bf["properties"], "type": "outline"},
+            }
+            rendered_features.append(outline)
+
+    # Remove geographic outliers when the bbox query pulled in features from
+    # adjacent/secondary courses. Two signals trigger filtering:
+    #   1. Multiple leisure=golf_course boundaries (resort complex).
+    #   2. Duplicate hole refs in the 1-9 range — indicates a par-3 or practice
+    #      course mixed in alongside the main 18 (e.g. Augusta's Par 3 Course).
+    # Single-facility 36-hole layouts like LaFortune don't have duplicate refs
+    # for the same hole number, so they're unaffected.
+    boundary_count = sum(
+        1 for f in features if f["properties"]["type"] == "boundary"
+    )
+    hole_refs_1_9: dict[str, int] = {}
+    for f in rendered_features:
+        if f["properties"]["type"] == "hole":
+            ref = f["properties"].get("ref", "")
+            if ref.isdigit() and 1 <= int(ref) <= 9:
+                hole_refs_1_9[ref] = hole_refs_1_9.get(ref, 0) + 1
+    has_duplicate_holes = any(count > 1 for count in hole_refs_1_9.values())
+
+    if (boundary_count > 1 or has_duplicate_holes) and len(rendered_features) >= 5:
+        rendered_features = _remove_outliers(rendered_features)
 
     return {
         "metadata": metadata,
@@ -265,26 +320,58 @@ def _filter_by_hole_routing(features: list[dict]) -> list[dict] | None:
     if len(main_geoms) < 9:
         return None
 
-    # Buffer each hole line individually to create corridor zones.
-    # Use ~30% of the average hole length as buffer width — wide enough to
-    # capture fairways, greens, bunkers, and water hazards flanking each hole,
-    # but tight enough to exclude features from adjacent par-3 courses or
-    # practice facilities that sit between main-course holes.
-    lengths = [g.length for g in main_geoms if g.length > 0]
-    avg_length = sum(lengths) / len(lengths) if lengths else 0.003
-    buffer_dist = avg_length * 0.30
+    # Track which specific hole features belong to the main course so we can
+    # drop duplicates from secondary (par-3 / practice) courses explicitly.
+    main_hole_ids: set[int] = set()
+    for ref_num in range(10, 19):
+        for f in by_ref.get(str(ref_num), []):
+            main_hole_ids.add(id(f))
+    for ref_num in range(1, 10):
+        candidates = by_ref.get(str(ref_num), [])
+        if not candidates:
+            continue
+        if len(candidates) == 1 or anchor_center is None:
+            main_hole_ids.add(id(candidates[0]))
+        else:
+            best_f = None
+            best_dist = float("inf")
+            for f in candidates:
+                geom = _shapely_geom(f["geometry"])
+                if geom:
+                    dist = geom.centroid.distance(anchor_center)
+                    if dist < best_dist:
+                        best_dist = dist
+                        best_f = f
+            if best_f is not None:
+                main_hole_ids.add(id(best_f))
 
-    # Union of all buffered hole corridors
-    corridors = unary_union([g.buffer(buffer_dist) for g in main_geoms])
+    # Build a tight keep-zone: convex hull of all main holes, then buffer by
+    # ~15% of the hull's diagonal. This envelops fairways/greens/bunkers that
+    # flank each hole but excludes spatially separated clusters like Augusta's
+    # Par 3 Course, which sits adjacent to but outside the main routing.
+    hull = unary_union(main_geoms).convex_hull
+    minx, miny, maxx, maxy = hull.bounds
+    diag = ((maxx - minx) ** 2 + (maxy - miny) ** 2) ** 0.5
+    buffer_dist = diag * 0.05
+    keep_zone = hull.buffer(buffer_dist)
 
-    # Keep features that intersect the corridor zones
     result = []
     for f in features:
+        # Drop duplicate hole features that belong to a secondary course.
+        if f["properties"]["type"] == "hole":
+            ref = f["properties"].get("ref", "")
+            if ref.isdigit() and id(f) not in main_hole_ids:
+                continue
+            result.append(f)
+            continue
         geom = _shapely_geom(f["geometry"])
         if geom is None:
             result.append(f)
             continue
-        if corridors.intersects(geom):
+        # Use centroid-in-keep-zone: a feature's centroid tells us where it
+        # "lives" better than intersection, which can be tricked by large
+        # features (e.g. a water hazard stretching between courses).
+        if keep_zone.contains(geom.centroid) or keep_zone.intersects(geom):
             result.append(f)
 
     # Safety: don't remove too many features

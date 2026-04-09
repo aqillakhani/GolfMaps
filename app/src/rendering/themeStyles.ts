@@ -5,6 +5,7 @@ import type { LayerStyles } from "./renderGeoJSON";
  */
 export const THEME_LAYERS: Record<string, LayerStyles> = {
   classic: {
+    outline: { fill: "#4A7C59", stroke: "#3A6B4A", strokeWidth: 1, opacity: 0.7 },
     boundary: { fill: "#E8E5D8", stroke: "none", strokeWidth: 0, opacity: 1 },
     trees: { fill: "#7BA36E", stroke: "none", strokeWidth: 0, opacity: 0.6 },
     water: { fill: "#6B9BC3", stroke: "#5A8AB2", strokeWidth: 0.5, opacity: 0.9 },
@@ -16,6 +17,7 @@ export const THEME_LAYERS: Record<string, LayerStyles> = {
     hole: { fill: "none", stroke: "#FFFFFF", strokeWidth: 1, opacity: 0.5 },
   },
   dark: {
+    outline: { fill: "#2D6B4A", stroke: "#256B42", strokeWidth: 1, opacity: 0.7 },
     boundary: { fill: "#252540", stroke: "none", strokeWidth: 0, opacity: 1 },
     trees: { fill: "#1E4D2E", stroke: "none", strokeWidth: 0, opacity: 0.5 },
     water: { fill: "#3A6B8C", stroke: "#2D5A7A", strokeWidth: 0.5, opacity: 0.9 },
@@ -27,6 +29,7 @@ export const THEME_LAYERS: Record<string, LayerStyles> = {
     hole: { fill: "none", stroke: "#AAAACC", strokeWidth: 1, opacity: 0.4 },
   },
   vintage: {
+    outline: { fill: "#6B8E5A", stroke: "#5A7D4A", strokeWidth: 1, opacity: 0.65 },
     boundary: { fill: "#EAD9BF", stroke: "none", strokeWidth: 0, opacity: 1 },
     trees: { fill: "#6B8E5A", stroke: "none", strokeWidth: 0, opacity: 0.5 },
     water: { fill: "#7BA3B5", stroke: "#6A92A4", strokeWidth: 0.5, opacity: 0.85 },
@@ -38,6 +41,7 @@ export const THEME_LAYERS: Record<string, LayerStyles> = {
     hole: { fill: "none", stroke: "#4A3728", strokeWidth: 1, opacity: 0.4 },
   },
   blueprint: {
+    outline: { fill: "none", stroke: "#FFFFFF", strokeWidth: 1.5, opacity: 0.6 },
     boundary: { fill: "none", stroke: "#FFFFFF", strokeWidth: 0.5, opacity: 0.3 },
     trees: { fill: "none", stroke: "#FFFFFF", strokeWidth: 0.3, opacity: 0.2 },
     water: { fill: "none", stroke: "#FFFFFF", strokeWidth: 1, opacity: 0.6 },
@@ -49,6 +53,7 @@ export const THEME_LAYERS: Record<string, LayerStyles> = {
     hole: { fill: "none", stroke: "#FFFFFF", strokeWidth: 0.5, opacity: 0.5 },
   },
   watercolor: {
+    outline: { fill: "#90C67C", stroke: "none", strokeWidth: 0, opacity: 0.5 },
     boundary: { fill: "#F0F5EC", stroke: "none", strokeWidth: 0, opacity: 1 },
     trees: { fill: "#8FBC8F", stroke: "none", strokeWidth: 0, opacity: 0.4 },
     water: { fill: "#87CEEB", stroke: "none", strokeWidth: 0, opacity: 0.6 },
@@ -60,6 +65,7 @@ export const THEME_LAYERS: Record<string, LayerStyles> = {
     hole: { fill: "none", stroke: "#3A5A40", strokeWidth: 0.8, opacity: 0.3 },
   },
   minimalist: {
+    outline: { fill: "#333333", stroke: "#222222", strokeWidth: 1, opacity: 0.5 },
     boundary: { fill: "#F5F5F5", stroke: "none", strokeWidth: 0, opacity: 1 },
     trees: { fill: "#CCCCCC", stroke: "none", strokeWidth: 0, opacity: 0.3 },
     water: { fill: "#666666", stroke: "none", strokeWidth: 0, opacity: 0.6 },

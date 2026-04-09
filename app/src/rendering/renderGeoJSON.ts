@@ -16,7 +16,7 @@ export interface LayerStyle {
 export type LayerStyles = Record<string, LayerStyle>;
 
 const LAYER_ORDER = [
-  "water", "fairway", "bunker", "green",
+  "outline", "rough", "water", "fairway", "tee", "bunker", "green",
 ];
 
 export function renderGeoJSONToSvg(
