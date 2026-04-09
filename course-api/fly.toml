@@ -1,0 +1,47 @@
+# Fly.io deployment config for the GolfMaps Course API.
+# Usage:
+#   1. From course-api/: `fly launch --no-deploy --copy-config` (set app name, region)
+#   2. Set secrets:
+#        fly secrets set \
+#          ANTHROPIC_API_KEY=... \
+#          SCORECARD_AUTH_SECRET=... \
+#          ALLOWED_ORIGINS=https://golfmaps.app,capacitor://localhost,http://localhost
+#   3. Deploy:
+#        fly deploy
+#
+# The app name below is a placeholder — `fly launch` will set its own.
+
+app = "golfmaps-api"
+primary_region = "iad"       # US East; pick what's close to your users
+kill_signal = "SIGINT"
+kill_timeout = "10s"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  ENVIRONMENT = "production"
+  LOG_LEVEL = "INFO"
+  PORT = "8001"
+
+[http_service]
+  internal_port = 8001
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0      # scale to zero when idle to keep costs low
+  processes = ["app"]
+
+  [[http_service.checks]]
+    grace_period = "15s"
+    interval = "30s"
+    method = "GET"
+    path = "/health"
+    protocol = "http"
+    timeout = "5s"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"              # enough for shapely + anthropic client
+  cpus = 1
+  cpu_kind = "shared"

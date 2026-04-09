@@ -19,8 +19,11 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
+    sourcemap: mode !== "production",
+    chunkSizeWarningLimit: 700,
     rollupOptions: {
-      // These are optional dependencies — only available when installed
+      // Optional integration packages — only bundled if installed. Keeping
+      // them external lets the app build and run without RevenueCat/Sentry.
       external: [
         "@sentry/react",
         "@sentry/capacitor",
@@ -28,9 +31,13 @@ export default defineConfig(({ mode }) => ({
         "@stripe/stripe-js",
       ],
       output: {
-        // Provide globals for externalized modules
         globals: {
           "@sentry/react": "Sentry",
+        },
+        manualChunks: {
+          "vendor-react": ["react", "react-dom", "react-router-dom"],
+          "vendor-ui": ["framer-motion", "lucide-react"],
+          "vendor-d3": ["d3-geo", "d3-shape", "d3-path"],
         },
       },
     },
